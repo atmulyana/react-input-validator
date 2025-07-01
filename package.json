@@ -6,6 +6,7 @@
     "workspaces": [
         "packages/rules",
         "packages/rules-datetime",
+        "packages/rules-file",
         "packages/helpers",
         "packages/core",
         "packages/native",
