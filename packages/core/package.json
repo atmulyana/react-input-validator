@@ -1,0 +1,52 @@
+{
+    "name": "@react-input-validator/core",
+    "version": "2.0.0",
+    "description": "The core library for doing validation to the form inputs in react app. It's used by `@react-input-validator/native` which does the validation in React Native app. Also, used by `@react-input-validator/web` which does the validation in React web app.",
+    "author": "AT Mulyana <atmulyana@yahoo.com>",
+    "license": "MIT",
+    "repository": "https://github.com/atmulyana/react-input-validator",
+    "keywords": [
+        "react",
+        "react-native",
+        "form",
+        "input",
+        "validation",
+        "validator"
+    ],
+    "scripts": {
+        "build": "tsc -p .",
+        "prepack": "npm run build && shx cp -u ../../README.md ./README.md && shx cp -u ../../LICENSE ./LICENSE"
+    },
+    "main": "dist/index.js",
+    "exports": {
+        ".": "./dist/index.js",
+        "./helpers": "./dist/helpers/index.js",
+        "./helpers/*": "./dist/helpers/*.js",
+        "./messages": "./dist/messages.js",
+        "./types": "./dist/types/index.js",
+        "./types/*": "./dist/types/*.js"
+    },
+    "files": [
+        "*",
+        "!__tests__/*",
+        "!babel.config.js",
+        "!tsconfig.json"
+    ],
+    "engines": {
+        "node": ">=14.13.0"
+    },
+    "dependencies": {
+        "@react-input-validator/helpers": "^2.0.0",
+        "@react-input-validator/rules": "^2.0.0",
+        "reactjs-common": ">=0.1.0"
+    },
+    "devDependencies": {
+        "@types/react": "^19.1.8",
+        "@types/react-is": "^19.0.0",
+        "typescript": "^5.8.3"
+    },
+    "peerDependencies": {
+        "react": ">=16.8.0",
+        "react-is": "*"
+    }
+}

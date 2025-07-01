@@ -1,0 +1,32 @@
+{
+    "$schema": "https://json.schemastore.org/tsconfig",
+    "compilerOptions": {
+        "target": "es2015",
+        "composite": true,
+        "lib": ["esnext", "dom"],
+        "module": "CommonJS",
+        "moduleResolution": "node",
+        "paths": {
+            "@react-input-validator/*": ["./packages/*"]
+        },
+        "allowJs": true,
+        "allowUnreachableCode": false,
+        "allowSyntheticDefaultImports": true,
+        "declaration": true,
+        "declarationMap": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": false,
+        "isolatedModules": true,
+        "jsx": "react-jsx",
+        "noFallthroughCasesInSwitch": true,
+        "resolveJsonModule": true,
+        "resolvePackageJsonImports": false,
+        "skipLibCheck": true,
+        "strict": true
+    },
+    "exclude": [
+        "./packages/*/__tests__",
+        "./packages/*/dist",
+        "./packages/*/babel.config.js",
+    ]
+}

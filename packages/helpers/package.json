@@ -1,0 +1,50 @@
+{
+    "name": "@react-input-validator/helpers",
+    "version": "2.0.0",
+    "description": "The helper functions/variables used by the packages under `@react-input-validator`",
+    "author": "AT Mulyana <atmulyana@yahoo.com>",
+    "license": "MIT",
+    "repository": "https://github.com/atmulyana/react-input-validator",
+    "keywords": [
+        "react",
+        "react-native",
+        "form",
+        "input",
+        "validation",
+        "validator"
+    ],
+    "scripts": {
+        "build": "tsc -p .",
+        "prepack": "npm run build && shx cp -u ../../README.md ./README.md && shx cp -u ../../LICENSE ./LICENSE",
+        "test": "jest"
+    },
+    "main": "dist/index.js",
+    "files": [
+        "*",
+        "!__tests__/*",
+        "!babel.config.js",
+        "!tsconfig.json"
+    ],
+    "engines": {
+        "node": ">=14.13.0"
+    },
+    "dependencies": {
+        "@react-input-validator/rules": "^2.0.0"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.27.7",
+        "@babel/preset-env": "^7.27.2",
+        "@babel/preset-typescript": "^7.27.1",
+        "babel-jest": "^30.0.2",
+        "jest": "^30.0.3",
+        "typescript": "^5.8.3"
+    },
+    "jest": {
+        "testMatch": [
+            "**/__tests__/**/*.+(spec|test).[jt]s?(x)"
+        ],
+        "transformIgnorePatterns": [
+            "node_modules/(?!(javascript-common)/)"
+        ]
+    }
+}

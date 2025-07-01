@@ -1,0 +1,10 @@
+{
+    "extends": "../../tsconfig",
+    "references": [
+        { "path": "../helpers" },
+        { "path": "../rules" }
+    ],
+    "compilerOptions": {
+        "outDir": "./dist"
+    }
+}

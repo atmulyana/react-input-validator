@@ -1,0 +1,17 @@
+{
+    "description": "Doing validation to the form inputs in react app (web and native)",
+    "private": true,
+    "license": "MIT",
+    "repository": "https://github.com/atmulyana/react-input-validator",
+    "workspaces": [
+        "packages/rules",
+        "packages/rules-datetime",
+        "packages/helpers",
+        "packages/core",
+        "packages/native",
+        "packages/web"
+    ],
+    "devDependencies": {
+        "shx": "^0.4.0"
+    }
+}
