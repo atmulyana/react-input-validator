@@ -56,9 +56,6 @@
         "preset": "react-native",
         "testMatch": [
             "**/__tests__/**/*.+(spec|test).[jt]s?(x)"
-        ],
-        "transformIgnorePatterns": [
-            "node_modules/(?!(javascript-common|@react-native|react-native|reactjs-common)/)"
         ]
     }
 }

@@ -61,9 +61,6 @@
         "testMatch": [
             "**/__tests__/**/*.+(spec|test).[jt]s?(x)",
             "!**/__tests__/Context.test.js"
-        ],
-        "transformIgnorePatterns": [
-            "node_modules/(?!(javascript-common|@react-native|react-native|reactjs-common)/)"
         ]
     }
 }
