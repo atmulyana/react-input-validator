@@ -1,8 +1,7 @@
 /**
  * https://github.com/atmulyana/react-input-validator
  */
-import type Rule from './Rule';
-import type {ComparableType} from './Rule';
+import type {ComparableType, IRule} from './Rule';
 import messages from './messages';
 import ValidationRule from './ValidationRule';
 
@@ -19,7 +18,7 @@ export class Max extends ValidationRule<ComparableType> {
         return this.lang(messages.max);
     }
 
-    validate(): Rule<ComparableType> {
+    validate(): IRule<ComparableType> {
         const max = typeof(this.max) == 'function' ? this.max() : this.max; 
         let valType = typeof this.value,
             limitType = typeof max;

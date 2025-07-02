@@ -2,7 +2,7 @@
  * https://github.com/atmulyana/react-input-validator
  */
 import messages from '@react-input-validator/rules/messages';
-import type {LangFunction, Nullable, Rules, ValidateParam} from '@react-input-validator/rules/Rule';
+import type {IRule, LangFunction, Nullable, Rules, ValidateParam} from '@react-input-validator/rules/Rule';
 import Rule, {isFilled} from '@react-input-validator/rules/Rule';
 import {Required, ValidationRuleAsync} from '@react-input-validator/rules';
 
@@ -18,7 +18,7 @@ type ValidateRuleReturn<Async extends boolean> = Async extends true ? Promise<TV
 type TParam = Nullable<string> | ValidateParam;
 
 function validateRule<Async extends boolean>(
-    rule: Rule,
+    rule: IRule,
     value: any,
     param: ValidateParam,
     lang: LangFunction,
@@ -86,8 +86,8 @@ function checkRules(
     value: unknown,
     param: ValidateParam,
     lang: LangFunction
-): boolean | string | Array<Rule<any>> {
-    let arRule: Array<Rule<any>>;
+): boolean | string | Array<IRule<any>> {
+    let arRule: Array<IRule<any>>;
     if (Array.isArray(rules)) {
         arRule = rules;
     }
@@ -105,7 +105,7 @@ function checkRules(
         }
         return rule instanceof Rule; //runtime check
     }).sort(
-        (rule1: Rule<any>, rule2: Rule<any>) => (
+        (rule1: IRule<any>, rule2: IRule<any>) => (
             rule1.priority < rule2.priority ? -1 :
             rule1.priority > rule2.priority ? 1 :
             0

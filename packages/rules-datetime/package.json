@@ -13,6 +13,9 @@
         "validation",
         "validator"
     ],
+    "publishConfig": {
+        "access": "public"
+    },
     "scripts": {
         "build": "tsc -p .",
         "prepack": "npm run build && shx cp -u ../../README.md ./README.md && shx cp -u ../../LICENSE ./LICENSE",
@@ -33,7 +36,7 @@
         "node": ">=14.13.0"
     },
     "dependencies": {
-        "jssimpledateformat": "^3.0.3",
+        "jssimpledateformat": ">=3.0.0",
         "@react-input-validator/rules": "^2.0.0"
     },
     "devDependencies": {

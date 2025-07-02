@@ -132,7 +132,7 @@ export function withValidation<Props, Instance = unknown>(
         rules = option;
     }
     else {
-        rules = option?.rules; //`?.` for runtime check. `option` may not be a non-null object.
+        rules = (option as ValidationOption<Props, any>)?.rules; //`?.` for runtime check. `option` may not be a non-null object.
                                //NOTE: `?.` operator also applies to non-object variable such as boolean and number 
     }
 

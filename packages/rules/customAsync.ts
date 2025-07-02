@@ -2,8 +2,7 @@
  * https://github.com/atmulyana/react-input-validator
  */
 import {emptyString} from 'javascript-common';
-import type Rule from './Rule';
-import type {Nullable, ValidateFunctionAsync, ValidateParam} from './Rule';
+import type {IRule, Nullable, ValidateFunctionAsync, ValidateParam} from './Rule';
 import messages from './messages';
 import ValidationRuleAsync from './ValidationRuleAsync';
 
@@ -29,7 +28,7 @@ export class CustomRuleAsync<V = unknown> extends ValidationRuleAsync<V> {
         return super.resultValue;
     }
 
-    async validate(): Promise<Rule<V>> {
+    async validate(): Promise<IRule<V>> {
         const param: ValidateParam = {
             inputValues: this.inputValues,
             name: this.name,
@@ -53,5 +52,5 @@ export class CustomRuleAsync<V = unknown> extends ValidationRuleAsync<V> {
         return this;
     }
 }
-export const ruleAsync = <V = unknown>(validateFunc: ValidateFunctionAsync<V>, errorMessage?: string): Rule<V> =>
+export const ruleAsync = <V = unknown>(validateFunc: ValidateFunctionAsync<V>, errorMessage?: string): IRule<V> =>
     new CustomRuleAsync(validateFunc, errorMessage);

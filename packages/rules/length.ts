@@ -2,8 +2,7 @@
  * https://github.com/atmulyana/react-input-validator
  */
 import {emptyString} from "javascript-common";
-import type Rule from './Rule';
-import type {LengthType, Nullable} from './Rule';
+import type {IRule, LengthType, Nullable} from './Rule';
 import messages from './messages';
 import ValidationRule from './ValidationRule';
 
@@ -23,7 +22,7 @@ export class Length extends ValidationRule<LengthType> {
         return this.#message;
     }
 
-    validate(): Rule<LengthType> {
+    validate(): IRule<LengthType> {
         this.#message = emptyString;
         var val: {length: number} = typeof(this.value) == 'number' ? this.value+emptyString : this.value;
         if (this.min !== undefined && val.length < this.min) this.#message = this.lang(messages.lengthMin);

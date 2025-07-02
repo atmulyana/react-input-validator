@@ -1,8 +1,7 @@
 /**
  * https://github.com/atmulyana/react-input-validator
  */
-import type Rule from './Rule';
-import type {ComparableType} from './Rule';
+import type {ComparableType, IRule} from './Rule';
 import messages from './messages';
 import ValidationRule from './ValidationRule';
 
@@ -19,7 +18,7 @@ export class Min extends ValidationRule<ComparableType> {
         return this.lang(messages.min);
     }
 
-    validate(): Rule<ComparableType> {
+    validate(): IRule<ComparableType> {
         const min = typeof(this.min) == 'function' ? this.min() : this.min; 
         let valType = typeof this.value,
             limitType = typeof min;

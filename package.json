@@ -3,6 +3,21 @@
     "private": true,
     "license": "MIT",
     "repository": "https://github.com/atmulyana/react-input-validator",
+    "scripts": {
+        "build:rules": "npm run build --workspace=@react-input-validator/rules",
+        "build:rules-datetime": "npm run build --workspace=@react-input-validator/rules-datetime",
+        "build:rules-file": "npm run build --workspace=@react-input-validator/rules-file",
+        "build:helpers": "npm run build --workspace=@react-input-validator/helpers",
+        "build:core": "npm run build --workspace=@react-input-validator/core",
+        "build:native": "npm run build --workspace=@react-input-validator/native",
+        "build:web": "npm run build --workspace=@react-input-validator/web",
+        "test:rules": "npm test --workspace=@react-input-validator/rules",
+        "test:rules-datetime": "npm test --workspace=@react-input-validator/rules-datetime",
+        "test:rules-file": "npm test --workspace=@react-input-validator/rules-file",
+        "test:helpers": "npm test --workspace=@react-input-validator/helpers",
+        "test:native": "npm test --workspace=@react-input-validator/native",
+        "test:web": "npm test --workspace=@react-input-validator/web"
+    },
     "workspaces": [
         "packages/rules",
         "packages/rules-datetime",

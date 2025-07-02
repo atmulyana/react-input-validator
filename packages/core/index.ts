@@ -1,5 +1,5 @@
 /**
- * https://github.com/atmulyana/rc-input-validator
+ * https://github.com/atmulyana/react-input-validator
  */
 export {setRef} from 'reactjs-common';
 export * from './helpers';

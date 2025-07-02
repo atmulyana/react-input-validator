@@ -1,10 +1,10 @@
 /**
  * https://github.com/atmulyana/react-input-validator
  */
-import Rule from './Rule';
+import Rule, {type IRule} from './Rule';
 
 export default class<T, R = any> extends Rule<T, R> {
-    validate(): Rule<T> {
+    validate(): IRule<T> {
         return this;
     }
 }

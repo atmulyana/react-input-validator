@@ -2,8 +2,7 @@
  * https://github.com/atmulyana/react-input-validator
  */
 import {emptyString} from "javascript-common";
-import type Rule from './Rule';
-import type {ComparableType, HttpReqOption, Nullable} from './Rule';
+import type {ComparableType, IRule, HttpReqOption, Nullable} from './Rule';
 import messages from './messages';
 import ValidationRuleAsync from './ValidationRuleAsync';
 
@@ -23,7 +22,7 @@ export class HttpReq extends ValidationRuleAsync<Nullable<ComparableType | boole
         return this.#message;
     }
 
-    validate(): Promise<Rule<Nullable<ComparableType | boolean>>> {
+    validate(): Promise<IRule<Nullable<ComparableType | boolean>>> {
         this.#message = messages.invalid;
         return new Promise(($resolve, $reject) => {
             const resolve = (value: boolean | string) => {

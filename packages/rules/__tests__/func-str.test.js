@@ -31,4 +31,10 @@ test('str function', () => {
             dua: 'dua',
         })
     ).toBe('Mulai dari satu, dua dan  dst.');
+    expect(
+        str('Mulai dari ${satu}, ${dua} dan ${tiga} dst.', null)
+    ).toBe(null);
+    expect(
+        str('Mulai dari ${satu}, ${dua} dan ${tiga} dst.', 123)
+    ).toBe(null);
 });
