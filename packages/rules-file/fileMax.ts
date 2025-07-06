@@ -1,7 +1,7 @@
 /**
  * https://github.com/atmulyana/react-input-validator
  */
-import type {Rule} from '@react-input-validator/rules';
+import type {IRule} from '@react-input-validator/rules';
 import messages from './messages';
 import FileCheck, {type TUnit} from './FileCheck';
 
@@ -13,7 +13,7 @@ export const fileMax = (max: number, unit?: TUnit) => (
             return true;
         },
         messages.fileMax
-    ) as Rule<File | readonly File[]>
+    ) as IRule<File | readonly File[]>
 );
 
 export const fileTotalMax = (max: number, unit?: TUnit) => (
@@ -27,5 +27,5 @@ export const fileTotalMax = (max: number, unit?: TUnit) => (
             return totalSize <= maxSize;
         },
         messages.fileTotalMax
-    ) as Rule<File | readonly File[]>
+    ) as IRule<File | readonly File[]>
 );

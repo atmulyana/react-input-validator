@@ -2,7 +2,7 @@
  * https://github.com/atmulyana/react-input-validator
  */
 import {TimerFormat} from 'jssimpledateformat';
-import {ValidationRule, type Rule} from '@react-input-validator/rules';
+import {ValidationRule, type IRule} from '@react-input-validator/rules';
 import messages from './messages';
 
 const defaultPattern = "hh:mm";
@@ -35,7 +35,7 @@ export class Time extends ValidationRule<string, Date> {
         return this.#timeFormat.parse(strTime);
     }
     
-    validate(): Rule<string, Date> {
+    validate(): IRule<string, Date> {
         const time = this.#timeFormat.parse(this.value);
         this.#time = time as Date;
         this.isValid = !!time;

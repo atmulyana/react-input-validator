@@ -6,7 +6,7 @@ import type {IRule, Nullable, ValidateFunctionAsync, ValidateParam} from './Rule
 import messages from './messages';
 import ValidationRuleAsync from './ValidationRuleAsync';
 
-export class CustomRuleAsync<V = unknown> extends ValidationRuleAsync<V> {
+export class CustomRuleAsync<V = any> extends ValidationRuleAsync<V> {
     constructor(validateFunc: ValidateFunctionAsync<V>, errorMessage?: string) {
         super();
         this.#validate = validateFunc;

@@ -17,11 +17,17 @@
         "access": "public"
     },
     "scripts": {
-        "build": "tsc -p .",
+        "build:cjs": "tsc -b .",
+        "build:esm": "tsc -b tsconfig.esm.json",
+        "build": "npm run build:cjs && npm run build:esm",
         "prepack": "npm run build && shx cp -u ../../README.md ./README.md && shx cp -u ../../LICENSE ./LICENSE",
         "test": "jest"
     },
-    "main": "dist/index.js",
+    "exports": {
+        "types": "./dist/types/index.d.ts",
+        "import": "./dist/esm/index.js",
+        "default": "./dist/cjs/index.js"
+    },
     "files": [
         "*",
         "!__tests__/*",

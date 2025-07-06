@@ -1,7 +1,7 @@
 /**
  * https://github.com/atmulyana/react-input-validator
  */
-import type Rule from './Rule';
+import type {IRule} from './Rule';
 import ValidationRule from "./ValidationRule";
 
 export class BooleanValue extends ValidationRule<any, boolean> {
@@ -19,7 +19,7 @@ export class BooleanValue extends ValidationRule<any, boolean> {
     }
 }
 
-export const boolean: Rule<any, boolean> = new BooleanValue();
+export const boolean: IRule<any, boolean> = new BooleanValue();
 boolean.arrayAsSingle = function() {
     throw new Error("`boolean` rule object is shared among inputs. If you want to invoke `arrayAsSingle`, use `new BooleanValue()` instead.");
 };

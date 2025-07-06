@@ -2,7 +2,7 @@
  * https://github.com/atmulyana/react-input-validator
  */
 import JsSimpleDateFormat, {NetDateTimeFormat} from 'jssimpledateformat';
-import {ValidationRule, type Rule} from '@react-input-validator/rules';
+import {ValidationRule, type IRule} from '@react-input-validator/rules';
 import messages from './messages';
 
 const defaultPattern = "yyyy-MM-dd";
@@ -36,7 +36,7 @@ export class StrDate extends ValidationRule<string, Date> {
         return this.#dtFormat.parse(strDate);
     }
 
-    validate(): Rule<string, Date> {
+    validate(): IRule<string, Date> {
         const date = this.#dtFormat.parse(this.value);
         this.#date = date as Date;
         this.isValid = !!date;

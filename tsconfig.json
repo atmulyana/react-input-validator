@@ -4,12 +4,11 @@
         "target": "es2015",
         "composite": true,
         "lib": ["esnext", "dom"],
-        "module": "CommonJS",
-        "moduleResolution": "node",
+        "module": "commonjs",
         "paths": {
             "@react-input-validator/*": ["./packages/*"]
         },
-        "allowJs": true,
+        "allowJs": false,
         "allowUnreachableCode": false,
         "allowSyntheticDefaultImports": true,
         "declaration": true,
@@ -25,8 +24,7 @@
         "strict": true
     },
     "exclude": [
-        "./packages/*/__tests__",
-        "./packages/*/dist",
-        "./packages/*/babel.config.js",
+        "./packages/*/__tests__/**",
+        "./packages/*/dist/**"
     ]
 }

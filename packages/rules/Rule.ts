@@ -45,9 +45,9 @@ export type HttpReqOption = {
  * ``` 
  * The error message says that `email` doesn't have private fields like `#arrayAsSingle` but `rule` has.
  */
-export interface IRule<V = unknown, R = any> extends Pick<Rule<V, R>, keyof Rule<V, R>> {}
+export interface IRule<V = any, R = any> extends Pick<Rule<V, R>, keyof Rule<V, R>> {}
 
-export type Rules<V = unknown, R = any> = [IRule<V, R>, ...IRule<V, R>[]] | IRule<V, R>;
+export type Rules<V = any, R = any> = [IRule<V, R>, ...IRule<V, R>[]] | IRule<V, R>;
 
 const reVarNameHolders = /\$\{([_a-zA-Z][_a-zA-Z0-9]*)\}/g;
 const dontReadRuleMembers = {errorMessage: 1, lang: 1, messageFunc: 1, setMessageFunc: 1, setName: 1, setPriority: 1, setValue: 1, validate: 1};
@@ -79,7 +79,7 @@ export function isFilled(value: unknown): boolean {
 
 
 let defaultArrayAsSingle = false; 
-export default /*absract*/ class Rule<V = unknown, R = any> implements IRule<V, R> {
+export default /*absract*/ class Rule<V = any, R = any> implements IRule<V, R> {
     static get defaultLang(): LangFunction {
         return noChange;
     }

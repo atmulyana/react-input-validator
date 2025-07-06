@@ -48,7 +48,7 @@ export function validationFactory<
         Props,
         OuterProps extends Omit<Props, ExcludedPropNames> = Props,
         Instance = unknown,
-        Value = unknown,
+        Value = any,
     >(
         Input: AbstractComponent<Props, Instance>,
         option: ValidationOption<Props, StyleProp, OuterProps, CompositeStyleProp, Value>
@@ -357,7 +357,7 @@ export function validationFactory<
 
     type EmptyComponentProps = {
         style?: CompositeStyleProp,
-        value: unknown,
+        value: any,
     };
     function EmptyComponent(props: EmptyComponentProps): React.ReactNode {
         return null;

@@ -32,7 +32,7 @@ export type InputOptions = Array<{value: string, label?: string} | string>;
 
 export type ElementProps<
     Instance = HTMLElement,
-    RefValue = unknown,
+    RefValue = any,
 > = Omit<
     React.DetailedHTMLProps<React.HTMLAttributes<Instance>, Instance>,
     'onChange' | 'ref' | 'style' | 'value'
@@ -41,7 +41,7 @@ export type ElementProps<
     value?: RefValue,
 };
 export type ExcludedPropNames = 'className' | 'style' | 'ref' | 'value';
-export type OuterProps<Props extends ElementProps, Value = unknown> = Omit<Props, ExcludedPropNames> & {
+export type OuterProps<Props extends ElementProps, Value = any> = Omit<Props, ExcludedPropNames> & {
     style?: CompositeStyleProp,
     value?: Value,
 };
@@ -50,7 +50,7 @@ export type ContextProps = GenericContextProps<StyleProp>;
 export type ContextValue = GenericContextValue<StyleProp>;
 export type ValidationOption<
     Props extends ElementProps<HTMLElement, RefValue>,
-    Value = unknown,
+    Value = any,
     RefValue = Value
 > = GenericValidationOption<
     Props,

@@ -127,6 +127,7 @@ const HtmlCheckBoxes = React.forwardRef(function HtmlCheckBoxes(
     {className, horizontal, name, onChange, options, style, value = [], ...props}: CheckBoxesProps,
     ref: React.Ref<CheckBoxesRef>
 ) {
+    const vals: readonly string[] = Array.isArray(value) ? value : [value];
     const id = React.useId();
     const state = useState(() => {
         const state = {
@@ -182,7 +183,7 @@ const HtmlCheckBoxes = React.forwardRef(function HtmlCheckBoxes(
                     name={name}
                     type='checkbox'
                     value={opt.value}
-                    checked={value.includes(opt.value)}
+                    checked={vals.includes(opt.value)}
                     onChange={changeHandler}
                 /><label htmlFor={key}>&nbsp;{opt.label ?? opt.value}</label>
             </span>
@@ -194,8 +195,6 @@ export const CheckBoxes = React.forwardRef(function CheckBoxes(
     {value, ...props}: CheckBoxesOuterProps,
     ref: React.Ref<CheckBoxesRef & InputRef>
 ) {
-    const vals: readonly string[] = Array.isArray(value) ? value :
-                                    value ? [value] : [];
-    return <ValidatedInput {...props} Component={HtmlCheckBoxes} ref={ref} value={vals} />;
+    return <ValidatedInput {...props} value={value as any} Component={HtmlCheckBoxes} ref={ref} />;
 });
 CheckBoxes.displayName = 'CheckBoxes';

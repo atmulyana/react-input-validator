@@ -17,15 +17,28 @@
         "access": "public"
     },
     "scripts": {
-        "build": "tsc -p .",
+        "build:cjs": "tsc -p .",
+        "build:esm": "tsc -p tsconfig.esm.json",
+        "build": "npm run build:cjs && npm run build:esm",
         "prepack": "npm run build && shx cp -u ../../README.md ./README.md && shx cp -u ../../LICENSE ./LICENSE",
         "test": "jest"
     },
-    "main": "dist/index.js",
     "exports": {
-        ".": "./dist/index.js",
-        "./messages": "./dist/messages.js",
-        "./Rule": "./dist/Rule.js"
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/esm/index.js",
+            "default": "./dist/cjs/index.js"
+        },
+        "./messages": {
+            "types": "./dist/types/messages.d.ts",
+            "import": "./dist/esm/messages.js",
+            "default": "./dist/cjs/messages.js"
+        },
+        "./Rule": {
+            "types": "./dist/types/Rule.d.ts",
+            "import": "./dist/esm/Rule.js",
+            "default": "./dist/cjs/Rule.js"
+        }
     },
     "files": [
         "*",

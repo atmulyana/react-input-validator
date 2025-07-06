@@ -1,7 +1,7 @@
 /**
  * https://github.com/atmulyana/react-input-validator
  */
-import type Rule from './Rule';
+import type {IRule} from './Rule';
 import messages from './messages';
 import ValidationRule from './ValidationRule';
 
@@ -19,13 +19,13 @@ export class Numeric extends ValidationRule<string, number> {
         return parseFloat(this.value);
     }
     
-    validate(): Rule<string, number> {
+    validate(): IRule<string, number> {
         this.isValid = regex.test(this.value);
         return this;
     }
 }
 
-export const numeric: Rule<string, number> = new Numeric();
+export const numeric: IRule<string, number> = new Numeric();
 numeric.arrayAsSingle = function() {
     throw new Error("`numeric` rule object is shared among inputs. If you want to invoke `arrayAsSingle`, use `new Numeric()` instead.");
 };

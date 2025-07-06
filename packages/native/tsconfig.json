@@ -4,6 +4,7 @@
         { "path": "../core" }
     ],
     "compilerOptions": {
-        "outDir": "./dist"
+        "declarationDir": "./dist/types",
+        "outDir": "./dist/cjs"
     }
 }

@@ -33,7 +33,7 @@ export interface ContextValue<StyleProps> extends ContextDefaultProps<StyleProps
     removeRef: (ref: InputRef) => any,
 };
 
-export type ValidationOption<Props, StyleProps, OuterProps = Props, CompositeStyleProps = StyleProps, Value = unknown> = {
+export type ValidationOption<Props, StyleProps, OuterProps = Props, CompositeStyleProps = StyleProps, Value = any> = {
     asyncFailMessage?: ContextValue<StyleProps>['asyncFailMessage'],
     auto?: boolean,
     Container?: ContextValue<StyleProps>['Container'],
@@ -63,7 +63,7 @@ export type ValidationOption<Props, StyleProps, OuterProps = Props, CompositeSty
     ) => unknown,
 };
 
-export type ValidationProps<StyleProps, CompositeStyleProps = StyleProps, Value = unknown> = 
+export type ValidationProps<StyleProps, CompositeStyleProps = StyleProps, Value = any> = 
 Pick<
     ValidationOption<any, StyleProps, any, CompositeStyleProps, Value>,
     'auto' | 'Container' | 'ErrorText' | 'errorTextStyle' | 'lang' | 'name' | 'rules'

@@ -1,8 +1,8 @@
 /**
  * https://github.com/atmulyana/react-input-validator
  */
-import Rule from './Rule';
-export type {Rule};
+//hello comment
+export type {IRule} from './Rule';
 export {default as ValidationRule} from './ValidationRule';
 export {default as ValidationRuleAsync} from './ValidationRuleAsync';
 export {BooleanValue, boolean} from './boolean';

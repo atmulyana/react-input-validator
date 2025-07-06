@@ -17,17 +17,37 @@
         "access": "public"
     },
     "scripts": {
-        "build": "tsc -p .",
+        "build:cjs": "tsc -b .",
+        "build:esm": "tsc -b tsconfig.esm.json",
+        "build": "npm run build:cjs && npm run build:esm",
         "prepack": "npm run build && shx cp -u ../../README.md ./README.md && shx cp -u ../../LICENSE ./LICENSE"
     },
-    "main": "dist/index.js",
     "exports": {
-        ".": "./dist/index.js",
-        "./helpers": "./dist/helpers/index.js",
-        "./helpers/*": "./dist/helpers/*.js",
-        "./messages": "./dist/messages.js",
-        "./types": "./dist/types/index.js",
-        "./types/*": "./dist/types/*.js"
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/esm/index.js",
+            "default": "./dist/cjs/index.js"
+        },
+        "./helpers": {
+            "types": "./dist/types/helpers/index.d.ts",
+            "import": "./dist/esm/helpers/index.js",
+            "default": "./dist/cjs/helpers/index.js"
+        },
+        "./messages": {
+            "types": "./dist/types/messages.d.ts",
+            "import": "./dist/esm/messages.js",
+            "default": "./dist/cjs/messages.js"
+        },
+        "./types": {
+            "types": "./dist/types/types/index.d.ts",
+            "import": "./dist/esm/types/index.js",
+            "default": "./dist/cjs/types/index.js"
+        },
+        "./types/*": {
+            "types": "./dist/types/types/*.d.ts",
+            "import": "./dist/esm/types/*.js",
+            "default": "./dist/cjs/types/*.js"
+        }
     },
     "files": [
         "*",

@@ -1,7 +1,7 @@
 /**
  * https://github.com/atmulyana/react-input-validator
  */
-import type Rule from './Rule';
+import type {IRule} from './Rule';
 import messages from './messages';
 import ValidationRule from './ValidationRule';
 
@@ -21,7 +21,7 @@ export class Email extends ValidationRule<string, string> {
     }
 }
 
-export const email: Rule<string, string> = new Email();
+export const email: IRule<string, string> = new Email();
 email.arrayAsSingle = function() {
     throw new Error("`email` rule object is shared among inputs. If you want to invoke `arrayAsSingle`, use `new Email()` instead.");
 };

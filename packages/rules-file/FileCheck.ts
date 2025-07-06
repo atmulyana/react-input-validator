@@ -1,7 +1,7 @@
 /**
  * https://github.com/atmulyana/react-input-validator
  */
-import {ValidationRule, type Rule} from '@react-input-validator/rules';
+import {ValidationRule, type IRule} from '@react-input-validator/rules';
 import messages from './messages';
 
 export type TUnit = 'K' | 'M' | 'G' | 'k' | 'm' | 'g';
@@ -43,7 +43,7 @@ export default class FileCheck extends ValidationRule<File | readonly File[]> {
         return this;
     }
     
-    validate(): Rule<File | readonly File[]> {
+    validate(): IRule<File | readonly File[]> {
         const files = Array.isArray(this.value) ? this.value : [this.value];
         this.isValid = this.#validateFunc(files, calculateSize);
         return this;

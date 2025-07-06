@@ -1,11 +1,11 @@
 /**
  * https://github.com/atmulyana/react-input-validator
  */
-import type Rule from './Rule';
+import type {IRule} from './Rule';
 import messages from './messages';
 import ValidationRule from './ValidationRule';
  
-export class Integer extends ValidationRule<unknown> {
+export class Integer extends ValidationRule<any> {
     constructor() {
         super();
         this.setPriority(1);
@@ -15,13 +15,13 @@ export class Integer extends ValidationRule<unknown> {
         return this.lang(messages.integer);
     }
 
-    validate(): Rule<unknown> {
+    validate(): IRule {
         this.isValid = Number.isInteger(this.value);
         return this;
     }
 }
 
-export const integer: Rule<unknown> = new Integer();
+export const integer: IRule = new Integer();
 integer.arrayAsSingle = function() {
     throw new Error("`integer` rule object is shared among inputs. If you want to invoke `arrayAsSingle`, use `new Integer()` instead.");
 };

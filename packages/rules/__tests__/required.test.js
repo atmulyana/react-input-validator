@@ -1,7 +1,7 @@
 /**
  * https://github.com/atmulyana/react-input-validator
  */
-import {required, Required} from '../required';
+import {alwaysValid, required, Required} from '../required';
 
 test('validation: required', () => {
     expect(required.setValue(undefined).validate().isValid).toBe(false);
@@ -49,16 +49,19 @@ test('validation: Required.notTrimmed', () => {
 });
 
 test('validation: dissallowing `arrayAsSingle` call on `required`', () => {
+    expect(() => alwaysValid.arrayAsSingle()).not.toThrow();
     expect(() => required.arrayAsSingle(true)).toThrow();
     expect(() => new Required().arrayAsSingle(true)).not.toThrow();
 });
 
 test('validation: dissallowing setMessageFunc call on `required`', () => {
+    expect(() => alwaysValid.setMessageFunc(() => '')).not.toThrow();
     expect(() => required.setMessageFunc(() => '')).toThrow();
     expect(() => new Required().setMessageFunc(() => '')).not.toThrow();
 });
 
 test('validation: dissallowing notTrimmed call on `required`', () => {
+    expect(() => alwaysValid.notTrimmed()).not.toThrow();
     expect(() => required.notTrimmed()).toThrow();
     expect(() => new Required().notTrimmed()).not.toThrow();
 });

@@ -1,0 +1,11 @@
+{
+    "extends": "./tsconfig",
+    "references": [
+        { "path": "../rules/tsconfig.esm.json" }
+    ],
+    "compilerOptions": {
+        "module": "es2015",
+        "moduleResolution": "bundler",
+        "outDir": "./dist/esm"
+    }
+}

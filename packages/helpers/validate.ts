@@ -29,7 +29,6 @@ function validateRule<Async extends boolean>(
     const isSingleValue = !Array.isArray(value) || rule.isArrayAsSingle;
     const values: Array<any> = isSingleValue ? [value] : value;
     const resultValues: Array<any> = [];
-
     function getValue(): TValidateRuleReturn {
         if (rule.isValid) {
             return {
@@ -86,8 +85,8 @@ function checkRules(
     value: unknown,
     param: ValidateParam,
     lang: LangFunction
-): boolean | string | Array<IRule<any>> {
-    let arRule: Array<IRule<any>>;
+): boolean | string | Array<IRule> {
+    let arRule: Array<IRule>;
     if (Array.isArray(rules)) {
         arRule = rules;
     }
@@ -105,7 +104,7 @@ function checkRules(
         }
         return rule instanceof Rule; //runtime check
     }).sort(
-        (rule1: IRule<any>, rule2: IRule<any>) => (
+        (rule1: IRule, rule2: IRule) => (
             rule1.priority < rule2.priority ? -1 :
             rule1.priority > rule2.priority ? 1 :
             0

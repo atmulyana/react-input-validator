@@ -11,12 +11,14 @@
         "build:core": "npm run build --workspace=@react-input-validator/core",
         "build:native": "npm run build --workspace=@react-input-validator/native",
         "build:web": "npm run build --workspace=@react-input-validator/web",
+        "build": "npm run build:rules && npm run build:rules-datetime && npm run build:rules-file && npm run build:helpers && npm run build:core && npm run build:native && npm run build:web",
         "test:rules": "npm test --workspace=@react-input-validator/rules",
         "test:rules-datetime": "npm test --workspace=@react-input-validator/rules-datetime",
         "test:rules-file": "npm test --workspace=@react-input-validator/rules-file",
         "test:helpers": "npm test --workspace=@react-input-validator/helpers",
         "test:native": "npm test --workspace=@react-input-validator/native",
-        "test:web": "npm test --workspace=@react-input-validator/web"
+        "test:web": "npm test --workspace=@react-input-validator/web",
+        "test": "npm run test:rules && npm run test:rules-datetime && npm run test:rules-file && npm run test:helpers && npm run test:native && npm run test:web"
     },
     "workspaces": [
         "packages/rules",

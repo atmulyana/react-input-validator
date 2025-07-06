@@ -18,7 +18,7 @@ export type StyleProp< T = (Readonly<{[p: string]: unknown}> | AnyInterface) > =
 
 export type ContextProps = GenericContextProps<StyleProp>;
 export type ContextValue = GenericContextValue<StyleProp>;
-export type ValidationOption<Props, Value = unknown> = GenericValidationOption<
+export type ValidationOption<Props, Value = any> = GenericValidationOption<
     Props,
     StyleProp,
     Props,

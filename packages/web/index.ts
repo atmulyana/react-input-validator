@@ -1,6 +1,7 @@
 /**
  * https://github.com/atmulyana/react-input-validator
  */
+export * from '@react-input-validator/helpers';
 export {ValidationContext} from './Context';
 export * from './checkbox';
 export * from './form';
@@ -9,5 +10,5 @@ export * from './input';
 export * from './radiobutton';
 export * from './select';
 export * from './textarea';
-export type * from './types';
+export * from './types';
 export * from './Validation';

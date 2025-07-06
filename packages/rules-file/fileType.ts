@@ -1,7 +1,7 @@
 /**
  * https://github.com/atmulyana/react-input-validator
  */
-import type {Rule} from '@react-input-validator/rules';
+import type {IRule} from '@react-input-validator/rules';
 import messages from './messages';
 import FileCheck from './FileCheck';
 
@@ -13,7 +13,7 @@ function isWithExt(fileName: string, ext: string) {
     return fileName.endsWith(`.${ext}`);
 }
 
-export const fileExt = (extension: string | readonly string[]): Rule<File | readonly File[]> => {
+export const fileExt = (extension: string | readonly string[]): IRule<File | readonly File[]> => {
     const exts: readonly string[] = Array.isArray(extension) ? extension : [extension];
     const reLeadingDots = /^\.+/;
     const validators: {[ext: string]: (name: string, ext: string) => boolean} = {};

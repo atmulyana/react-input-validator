@@ -59,10 +59,30 @@ required.arrayAsSingle = function() {
 };
 required.setMessageFunc = function() {
     throw new Error("`required` rule object is shared among inputs. If you want to set message, use `new Required()` instead.");
-}
+};
 required.notTrimmed = function() {
     throw new Error("`required` rule object is shared among inputs. If you want to call `notTrimmed`, use `new Required()` instead.");
-}
+};
 
 const isFalse = () => false;
-export const alwaysValid: Required = Required.If(isFalse);
+export const alwaysValid = Required.If(isFalse);
+Object.defineProperty(alwaysValid, 'isValid', {
+    configurable: false,
+    enumerable: true,
+    get() {
+        return true;
+    },
+    set() {},
+});
+alwaysValid.arrayAsSingle = function() {
+    //always valid, has no effect
+    return this;
+};
+alwaysValid.setMessageFunc = function() {
+    //always valid, has no effect
+    return this;
+};
+alwaysValid.notTrimmed = function() {
+    //always valid, has no effect
+    return this;
+};

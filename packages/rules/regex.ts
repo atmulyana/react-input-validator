@@ -1,7 +1,7 @@
 /**
  * https://github.com/atmulyana/react-input-validator
  */
-import type Rule from './Rule';
+import type {IRule} from './Rule';
 import ValidationRule from './ValidationRule';
 
 export class Regex extends ValidationRule<string> {
@@ -15,9 +15,9 @@ export class Regex extends ValidationRule<string> {
 
     #regex: RegExp;
     
-    validate(): Rule<string> {
+    validate(): IRule<string> {
         this.isValid = this.#regex.test(this.value); 
         return this;
     }
 }
-export const regex = (pattern: RegExp | string, flags?: string): Rule<string> => new Regex(pattern, flags);
+export const regex = (pattern: RegExp | string, flags?: string): IRule<string> => new Regex(pattern, flags);

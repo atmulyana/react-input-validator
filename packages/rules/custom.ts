@@ -6,7 +6,7 @@ import type {IRule, Nullable, ValidateFunction, ValidateParam} from './Rule';
 import messages from './messages';
 import ValidationRule from './ValidationRule';
 
-export class CustomRule<V = unknown> extends ValidationRule<V> {
+export class CustomRule<V = any> extends ValidationRule<V> {
     constructor(validateFunc: ValidateFunction<V>, errorMessage?: string) {
         super();
         this.#validate = validateFunc;
