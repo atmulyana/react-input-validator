@@ -18,7 +18,8 @@
         "test:helpers": "npm test --workspace=@react-input-validator/helpers",
         "test:native": "npm test --workspace=@react-input-validator/native",
         "test:web": "npm test --workspace=@react-input-validator/web",
-        "test": "npm run test:rules && npm run test:rules-datetime && npm run test:rules-file && npm run test:helpers && npm run test:native && npm run test:web"
+        "test": "npm run test:rules && npm run test:rules-datetime && npm run test:rules-file && npm run test:helpers && npm run test:native && npm run test:web",
+        "web:dev": "npm run dev --workspace=@example/web"
     },
     "workspaces": [
         "packages/rules",
@@ -27,7 +28,8 @@
         "packages/helpers",
         "packages/core",
         "packages/native",
-        "packages/web"
+        "packages/web",
+        "example/web"
     ],
     "devDependencies": {
         "shx": "^0.4.0"
