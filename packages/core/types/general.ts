@@ -29,7 +29,18 @@ export interface InputRef extends Ref {
     validateAsync(resultObj?: Pick<ValidateParam, 'resultValue'>): Promise<boolean>,
 }
 
-export type AbstractComponent<Props, Instance> = React.ComponentType<React.PropsWithoutRef<Props> & React.RefAttributes<Instance>>
+interface ComponentClass<Instace, Props = {}, State = any> extends React.ComponentClass<Props, State> {
+    new(
+        props: Props,
+        context?: any,
+    ): Instace;
+}
+
+export type AbstractComponent<Props, Instance> = 
+    | ComponentClass<Instance, Props>
+    | React.FunctionComponent<React.PropsWithoutRef<Props> & React.RefAttributes<Instance>> 
+    | React.NamedExoticComponent<React.PropsWithoutRef<Props> & React.RefAttributes<Instance>>;
+
 export type ConfigProps<Props, DefaultProps> = {
     [p in keyof DefaultProps]?: DefaultProps[p];
 } & {

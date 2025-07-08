@@ -78,20 +78,22 @@ export function validationFactory<
             ? option.rules.some(rule => rule instanceof ValidationRuleAsync)
             : (option.rules instanceof ValidationRuleAsync);
         
-        let InputHasRef: AbstractComponent<Props, Instance>;
-        if (typeof Input == 'function' && Input.prototype.isReactComponent) InputHasRef = Input;
-        else if (/*isForwardRef(Input)*/ (Input as any)?.$$typeof === ForwardRef) InputHasRef = Input;
+        let _InputHasRef: AbstractComponent<Props, Instance>;
+        if (typeof Input == 'function' && Input.prototype.isReactComponent) _InputHasRef = Input;
+        else if (/*isForwardRef(Input)*/ (Input as any)?.$$typeof === ForwardRef) _InputHasRef = Input;
         else {
             /* It's just a trick to make `Input` (that is a function component)
             can accept `ref` property without an error/warning message */
             //@ts-ignore
-            InputHasRef = class extends React.Component<Props> {
+            _InputHasRef = class extends React.Component<Props> {
                 render(): React.ReactNode {
+                    const Input2 = Input as React.FunctionComponent<Props>;
                     return isValidElementType(Input) //we still prepare that `withValidation` is called without type-checking
-                        && <Input {...this.props} />;
+                        && <Input2 {...this.props} />;
                 }
             };
         }
+        const InputHasRef = _InputHasRef as React.FunctionComponent<React.PropsWithoutRef<Props> & React.RefAttributes<Instance>> ;
 
         
         class Validator {
@@ -351,7 +353,7 @@ export function validationFactory<
             return <validator.ValidatedInput inputRef={refCallback} />;
         };
         forwardRef.displayName = `withValidation<${(Input?.displayName || Input?.name || 'Input')}>`;
-        return React.forwardRef(forwardRef);
+        return React.forwardRef(forwardRef); 
     }
 
 
