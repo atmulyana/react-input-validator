@@ -19,6 +19,9 @@
         "test:native": "npm test --workspace=@react-input-validator/native",
         "test:web": "npm test --workspace=@react-input-validator/web",
         "test": "npm run test:rules && npm run test:rules-datetime && npm run test:rules-file && npm run test:helpers && npm run test:native && npm run test:web",
+        "native:start": "npm start --workspace=@example/native",
+        "native:android": "npm run android --workspace=@example/native",
+        "native:ios": "npm run ios --workspace=@example/native",
         "web:dev": "npm run dev --workspace=@example/web"
     },
     "workspaces": [
@@ -29,6 +32,7 @@
         "packages/core",
         "packages/native",
         "packages/web",
+        "example/native",
         "example/web"
     ],
     "devDependencies": {

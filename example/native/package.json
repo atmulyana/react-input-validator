@@ -1,0 +1,44 @@
+{
+  "name": "@example/native",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@react-native-community/checkbox": "^0.5.20",
+    "@react-native-community/datetimepicker": "^8.4.2",
+    "@react-native-picker/picker": "^2.11.1",
+    "jssimpledateformat": "^3.0.3",
+    "react": "19.1.0",
+    "react-native": "0.80.1",
+    "react-native-feather": "^1.1.2",
+    "react-native-simple-radio-button": "^2.7.4",
+    "react-native-svg": "^15.12.0",
+    "rn-select-option": "^0.0.6"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.28.0",
+    "@babel/preset-env": "^7.28.0",
+    "@babel/runtime": "^7.27.6",
+    "@react-native-community/cli": "19.0.0",
+    "@react-native-community/cli-platform-android": "19.0.0",
+    "@react-native-community/cli-platform-ios": "19.0.0",
+    "@react-native/babel-preset": "0.80.1",
+    "@react-native/eslint-config": "0.80.1",
+    "@react-native/metro-config": "0.80.1",
+    "@react-native/typescript-config": "0.80.1",
+    "@testing-library/react-native": "^13.2.0",
+    "@types/react": "^19.1.0",
+    "@types/react-native-simple-radio-button": "^2.7.7",
+    "jest": "^30.0.3",
+    "react-test-renderer": "19.1.0",
+    "typescript": "^5.8.3"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

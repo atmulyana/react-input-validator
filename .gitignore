@@ -70,6 +70,14 @@ yarn-error.log
 /coverage
 __tests__/__snapshots__
 
+# Yarn
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
 ####
 package-lock.json
 **/dist/
