@@ -45,14 +45,14 @@
         "!__tests__/*",
         "!babel.config.js",
         "!jest.config-dom.js",
-        "!tsconfig.json"
+        "!tsconfig.json",
+        "!tsconfig.esm.json"
     ],
     "engines": {
         "node": ">=14.13.0"
     },
     "dependencies": {
-        "@react-input-validator/core": "^2.0.0",
-        "reactjs-common": ">=0.1.0"
+        "@react-input-validator/core": "^2.0.0"
     },
     "devDependencies": {
         "@babel/core": "^7.27.7",
@@ -65,11 +65,11 @@
         "babel-jest": "^30.0.2",
         "jest": "^30.0.3",
         "jest-environment-jsdom": "^30.0.2",
+        "react-native": "*",
         "typescript": "^5.8.3"
     },
     "peerDependencies": {
-        "react": ">=16.8.0",
-        "react-native": "*"
+        "react": ">=16.8.0"
     },
     "jest": {
         "preset": "react-native",

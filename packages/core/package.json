@@ -53,14 +53,14 @@
         "*",
         "!__tests__/*",
         "!babel.config.js",
-        "!tsconfig.json"
+        "!tsconfig.json",
+        "!tsconfig.esm.json"
     ],
     "engines": {
         "node": ">=14.13.0"
     },
     "dependencies": {
         "@react-input-validator/helpers": "^2.0.0",
-        "@react-input-validator/rules": "^2.0.0",
         "reactjs-common": ">=0.1.0"
     },
     "devDependencies": {

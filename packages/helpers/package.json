@@ -32,7 +32,8 @@
         "*",
         "!__tests__/*",
         "!babel.config.js",
-        "!tsconfig.json"
+        "!tsconfig.json",
+        "!tsconfig.esm.json"
     ],
     "engines": {
         "node": ">=14.13.0"

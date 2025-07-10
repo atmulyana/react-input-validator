@@ -44,14 +44,14 @@
         "*",
         "!__tests__/*",
         "!babel.config.js",
-        "!tsconfig.json"
+        "!tsconfig.json",
+        "!tsconfig.esm.json"
     ],
     "engines": {
         "node": ">=14.13.0"
     },
     "dependencies": {
-        "@react-input-validator/core": "^2.0.0",
-        "javascript-common": "*"
+        "@react-input-validator/core": "^2.0.0"
     },
     "devDependencies": {
         "@babel/core": "^7.27.7",
