@@ -20,28 +20,30 @@ import type {
 import {ValidatedInput} from './Validation';
 
 
-interface RadioButtonsRef extends HTMLDivElement {
+interface HtmlRadioButtonsRef extends HTMLDivElement {
     focus: () => void,
     value: string,
 }
-type RadioButtonsProps = ElementProps<RadioButtonsRef, string>
-    & InputBaseProps<RadioButtonsRef, string>
+type HtmlRadioButtonsProps = ElementProps<HtmlRadioButtonsRef, string>
+    & InputBaseProps<HtmlRadioButtonsRef, string>
     & {
         horizontal?: boolean,
         options: InputOptions,
     };
-type RadioButtonsForwardProps = Omit<InputProps<RadioButtonsRef, RadioButtonsProps, string>, 'Component'>;
+export type RadioButtonsProps = Omit<InputProps<HtmlRadioButtonsRef, HtmlRadioButtonsProps, string>, 'Component'>;
+export type RadioButtonsRef = HtmlRadioButtonsRef & InputRef;
+
 const HtmlRadioButtons = React.forwardRef(function HtmlRadioButtons(
-    {className, horizontal, name, onChange, options, style, value, ...props}: RadioButtonsProps,
-    ref: React.Ref<RadioButtonsRef>
+    {className, horizontal, name, onChange, options, style, value, ...props}: HtmlRadioButtonsProps,
+    ref: React.Ref<HtmlRadioButtonsRef>
 ) {
     const id = React.useId();
     name = name || id;
     const state = useState(() => {
         const state = {
-            ref: null as (RadioButtonsRef | null),
-            refCallback: extRefCallback<HTMLDivElement, Pick<RadioButtonsRef, 'focus' | 'value'>>(
-                ref, /*must not be `null`, refers to `refCallback` in `forwardRef` in "../Validation.tsx"*/
+            ref: null as (HtmlRadioButtonsRef | null),
+            refCallback: extRefCallback<HTMLDivElement, Pick<HtmlRadioButtonsRef, 'focus' | 'value'>>(
+                ref, /*must not be `null`, refers to `refCallback` in `forwardRef` in "core/Validation.tsx"*/
                 {
                     focus() {
                         state.ref?.querySelector('input')?.focus();
@@ -58,7 +60,7 @@ const HtmlRadioButtons = React.forwardRef(function HtmlRadioButtons(
     
     const clickHandler: React.MouseEventHandler<HTMLInputElement> = ev => {
         if (onChange && state.ref) {
-            const event: React.ChangeEvent<RadioButtonsRef> = extendObject(ev, {
+            const event: React.ChangeEvent<HtmlRadioButtonsRef> = extendObject(ev, {
                 type: 'change',
                 target: state.ref,
                 currentTarget: state.ref,
@@ -98,8 +100,8 @@ const HtmlRadioButtons = React.forwardRef(function HtmlRadioButtons(
 });
 HtmlRadioButtons.displayName = 'HtmlRadioButtons';
 export const RadioButtons = React.forwardRef(function RadioButtons(
-    props: RadioButtonsForwardProps,
-    ref: React.Ref<RadioButtonsRef & InputRef>
+    props: RadioButtonsProps,
+    ref: React.Ref<RadioButtonsRef>
 ) {
     return <ValidatedInput {...props} Component={HtmlRadioButtons} ref={ref} />;
 });

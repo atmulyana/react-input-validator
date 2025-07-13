@@ -25,7 +25,7 @@ type InputValue<Type> = Type extends 'number' | 'range' ? number :
 type InputPropValue<Type> = Type extends 'file' ? '' : InputValue<Type>;
 type InputRefValue<Type> = Type extends 'file' ? readonly File[] : InputValue<Type>;
 //@ts-ignore: we need to define the new type of `value`
-interface HtmlInputElement<Type extends string = string> extends HTMLInputElement {
+interface HtmlInputRef<Type extends string = string> extends HTMLInputElement {
     type: Type,
     value: InputRefValue<Type>,
 }
@@ -33,20 +33,20 @@ type HtmlInputProps<Type extends string> = Omit<
     React.ComponentProps<'input'>,
     'defaultChecked' | 'defaultValue' | 'onChange' | 'type' | 'ref' | 'style' | 'value'
 > & {
-    onChange?: React.ChangeEventHandler<HtmlInputElement<Type>>,
+    onChange?: React.ChangeEventHandler<HtmlInputRef<Type>>,
     type?: Type,
     style?: StyleProp,
     value?: InputRefValue<Type>,
 };
 type InpInputProps<Type extends string> = InputProps<
-    HtmlInputElement<Type>,
+    HtmlInputRef<Type>,
     //@ts-ignore: consider that `HtmlInputElement<Type>` can be casted to `HTMLInputElement`  
     HtmlInputProps<Type>,
     InputPropValue<Type>,
     InputRefValue<Type>
 >;
 export type InpProps<Type extends string = string> = Omit<InpInputProps<Type>, 'Component'>;
-export type InpRef<Type extends string = string> = HtmlInputElement<Type> & InputRef;
+export type InpRef<Type extends string = string> = HtmlInputRef<Type> & InputRef;
 
 function inputValue<Type extends string>(input: HTMLInputElement) {
     return {
@@ -81,19 +81,19 @@ function inputValue<Type extends string>(input: HTMLInputElement) {
 
 const HtmlInput = React.forwardRef(function HtmlInput<Type extends React.HTMLInputTypeAttribute = 'text'>(
     {onChange, style, type, value, ...props}: HtmlInputProps<Type>,
-    ref: React.Ref<HtmlInputElement<Type>>
+    ref: React.Ref<HtmlInputRef<Type>>
 ) {
     const changeHandler: React.ChangeEventHandler<HTMLInputElement> = ev => {
         if (onChange) {
             const target = ev.target;
-            const event = ev as React.ChangeEvent<HtmlInputElement<Type>>;
+            const event = ev as React.ChangeEvent<HtmlInputRef<Type>>;
             event.target = extendObject(target, inputValue<Type>(target));
             onChange(event);
         }
     };
-    const $ref = extRefCallback<HTMLInputElement, Pick<HtmlInputElement<Type>, 'type' | 'value'>>(
+    const $ref = extRefCallback<HTMLInputElement, Pick<HtmlInputRef<Type>, 'type' | 'value'>>(
         //@ts-ignore: we need to define the new type of `value`
-        ref, /*must not be `null`, refers to `refCallback` in `forwardRef` in "../Validation.tsx"*/
+        ref, /*must not be `null`, refers to `refCallback` in `forwardRef` in "core/Validation.tsx"*/
         _ref => inputValue(_ref)
     );
 

@@ -25,8 +25,6 @@ export interface InputRef extends Ref {
     readonly name?: string,
     readonly resultValue?: any,
     setErrorMessage(message: string): void,
-    validate(resultObj?: Pick<ValidateParam, 'resultValue'>): boolean,
-    validateAsync(resultObj?: Pick<ValidateParam, 'resultValue'>): Promise<boolean>,
 }
 
 interface ComponentClass<Instace, Props = {}, State = any> extends React.ComponentClass<Props, State> {

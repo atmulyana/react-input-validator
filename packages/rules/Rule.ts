@@ -50,7 +50,20 @@ export interface IRule<V = any, R = any> extends Pick<Rule<V, R>, keyof Rule<V, 
 export type Rules<V = any, R = any> = [IRule<V, R>, ...IRule<V, R>[]] | IRule<V, R>;
 
 const reVarNameHolders = /\$\{([_a-zA-Z][_a-zA-Z0-9]*)\}/g;
-const dontReadRuleMembers = {errorMessage: 1, lang: 1, messageFunc: 1, setMessageFunc: 1, setName: 1, setPriority: 1, setValue: 1, validate: 1};
+const dontReadRuleMembers = {
+    arrayAsSingle: 1,
+    errorMessage: 1,
+    inputValues: 1,
+    isArrayAsSingle: 1,
+    lang: 1,
+    messageFunc: 1,
+    priority: 1,
+    setMessageFunc: 1,
+    setName: 1,
+    setPriority: 1,
+    setValue: 1,
+    validate: 1,
+};
 export const str = (template: Nullable<string>, params: any): Nullable<string> =>
     template &&
     (params && typeof(params) == 'object' || null) &&
@@ -148,8 +161,8 @@ export default /*absract*/ class Rule<V = any, R = any> implements IRule<V, R> {
         return this.#value;
     }
     
-    arrayAsSingle(value: boolean = true): IRule<V, R> {
-        this.#arrayAsSingle = value;
+    arrayAsSingle(isSingle: boolean = true): IRule<V, R> {
+        this.#arrayAsSingle = isSingle;
         return this;
     }
 

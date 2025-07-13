@@ -10,7 +10,7 @@ import {ValidatedInput} from './Validation';
 
 type SelectValue<Multiple> = Multiple extends true ? readonly string[] : string;
 //@ts-ignore: we need to define the new type of `value`
-interface HtmlSelectElement<Multiple extends boolean> extends HTMLSelectElement {
+interface HtmlSelectRef<Multiple extends boolean> extends HTMLSelectElement {
     multiple: Multiple,
     value: SelectValue<Multiple>
 }
@@ -19,20 +19,20 @@ type HtmlSelectProps<Multiple extends boolean> = Omit<
     'defaultChecked' | 'defaultValue' | 'multiple' | 'onChange' | 'ref' | 'style' | 'value'
 > & {
     multiple?: Multiple,
-    onChange?: React.ChangeEventHandler<HtmlSelectElement<NonNullable<Multiple>>>,
+    onChange?: React.ChangeEventHandler<HtmlSelectRef<NonNullable<Multiple>>>,
     style?: StyleProp,
     value?: SelectValue<Multiple>,
 };
 type SelectInputProps<Multiple extends (boolean | undefined)> =
     InputProps<
-        HtmlSelectElement<NonNullable<Multiple>>,
+        HtmlSelectRef<NonNullable<Multiple>>,
         //@ts-ignore: consider that `HtmlSelectElement<Multiple>` can be casted to `HTMLSelectElement`
         HtmlSelectProps<NonNullable<Multiple>>,
         SelectValue<Multiple>,
         SelectValue<NonNullable<Multiple>>
     >;
 export type SelectProps<Multiple extends (boolean | undefined) = boolean> = Omit<SelectInputProps<Multiple>, 'Component'>;
-export type SelectRef<Multiple extends boolean = boolean> = HtmlSelectElement<Multiple> & InputRef;
+export type SelectRef<Multiple extends boolean = boolean> = HtmlSelectRef<Multiple> & InputRef;
 
 function selectValue<Multiple>(input: HTMLSelectElement) {
     return {
@@ -67,19 +67,19 @@ function selectValue<Multiple>(input: HTMLSelectElement) {
 
 const HtmlSelect = React.forwardRef(function HtmlSelect<Multiple extends boolean>(
     {children, multiple, onChange, style, value, ...props}: HtmlSelectProps<Multiple>,
-    ref: React.Ref<HtmlSelectElement<Multiple>>
+    ref: React.Ref<HtmlSelectRef<Multiple>>
 ) {
     const changeHandler: React.ChangeEventHandler<HTMLSelectElement> = ev => {
         if (onChange) {
             const target = ev.target;
-            const event = ev as React.ChangeEvent<HtmlSelectElement<Multiple>>;
+            const event = ev as React.ChangeEvent<HtmlSelectRef<Multiple>>;
             event.target = extendObject(target, selectValue<Multiple>(target));
             onChange(event);
         }
     };
-    const $ref = extRefCallback<HTMLSelectElement, Pick<HtmlSelectElement<Multiple>, 'multiple' | 'value'>>(
+    const $ref = extRefCallback<HTMLSelectElement, Pick<HtmlSelectRef<Multiple>, 'multiple' | 'value'>>(
         //@ts-ignore: about `value` type ==> we need to define the new type of `value`
-        ref, /*must not be `null`, refers to `refCallback` in `forwardRef` in "../Validation.tsx"*/
+        ref, /*must not be `null`, refers to `refCallback` in `forwardRef` in "core/Validation.tsx"*/
         _ref => selectValue<Multiple>(_ref)
     );
     return <select

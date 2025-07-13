@@ -26,7 +26,6 @@ import {AsyncFailMessage} from './types';
 import {useState, validate, validateAsync} from './helpers';
 import messages from './messages';
 
-type ValidateResultObject = Pick<ValidateParam, 'resultValue'>;
 export type HocInput<Props, Instance> = AbstractComponent<Props, Instance & InputRef>;
 
 export function validationFactory<
@@ -142,9 +141,9 @@ export function validationFactory<
                 flag: 0,
             };
             
-            validate(resultObj?: ValidateResultObject): string {
+            validate(): string {
                 const value = getValue(this.props);
-                const param: ValidateParam = resultObj ?? {};
+                const param: ValidateParam = {};
                 param.name = option.name;
                 param.inputValues = this.inputValues;
                 const error = validate(
@@ -161,9 +160,9 @@ export function validationFactory<
                 return emptyString;
             };
 
-            async validateAsync(resultObj?: ValidateResultObject): Promise<string> {
+            async validateAsync(): Promise<string> {
                 const value = getValue(this.props);
-                const param: ValidateParam = resultObj ?? {};
+                const param: ValidateParam = {};
                 param.name = option.name;
                 param.inputValues = this.inputValues;
                 try {
@@ -256,13 +255,13 @@ export function validationFactory<
                     validator.setMessage(message.trim());
                 },
             
-                validate(resultObj?: ValidateResultObject): boolean {
-                    const error = validator.validate(resultObj);
+                validate(): boolean {
+                    const error = validator.validate();
                     return validator.setMessage(error);
                 },
 
-                async validateAsync(resultObj?: ValidateResultObject): Promise<boolean> {
-                    const error = await validator.validateAsync(resultObj);
+                async validateAsync(): Promise<boolean> {
+                    const error = await validator.validateAsync();
                     return validator.setMessage(error);
                 },
             };

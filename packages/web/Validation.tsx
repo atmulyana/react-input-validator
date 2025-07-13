@@ -153,7 +153,7 @@ export const ValidatedInput = React.forwardRef(function ValidatedInput<
             setRef(ref, _ref);
         }}
         name={name}
-        value={val ?? emptyString} /* avoids `undefined` to make the input component controlled */
+        value={val === undefined ? emptyString : val} /* avoids `undefined` to make the input component controlled */
         onChange={ev => {
             setVal(ev.target.value);
             if (onChange) onChange(ev);

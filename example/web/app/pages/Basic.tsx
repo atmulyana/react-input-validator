@@ -5,6 +5,7 @@
 import React from 'react';
 import {
     alwaysValid,
+    boolean,
     integer,
     max,
     min,
@@ -20,6 +21,7 @@ import {
 } from '@react-input-validator/rules-datetime';
 import {
     arrayAsSingle,
+    CheckBox,
     CheckBoxes,
     type ContextRef,
     Form,
@@ -239,6 +241,21 @@ export default function BasicPage() {
             />
             <div style={styles.flex2}><button type='button' onClick={() => setHobbies([])}>Clear</button></div>
         </div>
+        
+        {/*<div style={styles.inputRow}>
+            <div style={styles.flex1}>Agree?</div>
+            <CheckBox
+                name='agree'
+                rules={[required, boolean, rule(isAgree => isAgree, "You must agree!!!")]}
+                style={{
+                    $cover: styles.flex3,
+                    $input: {
+                        alignSelf: 'flex-start'
+                    }
+                }}
+                value={null}
+            />
+        </div>*/}
         
         <div style={styles.inputRow}>&nbsp;</div>
         <div style={styles.inputRow}>
