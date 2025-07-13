@@ -216,6 +216,7 @@ from `@react-input-validator/web` package. The rule objects are from
 
 The more complete list below shows the objects exported by the packages:
 - "`@react-input-validator/native`" and "`@react-input-validator/web`" package export:
+  + `arrayAsSingle`
   + `AsyncFailMessage`
   + `isDifferentStyle`
   + `isFilled`
