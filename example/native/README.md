@@ -3,7 +3,7 @@
 > **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
 
 ## Step 1: Install Project's Dependencies
-You first clone this library, please run the following command from root directory of this libarary:
+If you first clone this library, please run the following command from root directory of this library:
 
 ```sh
 # Using npm

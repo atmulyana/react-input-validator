@@ -1,5 +1,5 @@
 /**
- * https://github.com/atmulyana/rc-input-validator
+ * https://github.com/atmulyana/react-input-validator
  */
 import {act, cleanup, render, screen} from '@testing-library/react-native'; //cannot use "@testing-library/react", needs `ReactTestInstance` 
 //import '@testing-library/jest-dom'

@@ -1,7 +1,7 @@
 'use strict';
 /**
- * Example of how to use rc-input-validator package
- * https://github.com/atmulyana/rc-input-validator
+ * Example of how to use @react-input-validator packages
+ * https://github.com/atmulyana/react-input-validator
  */
 const {
     validate

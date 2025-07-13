@@ -2,7 +2,7 @@
 
 It's common in an application that the user needs to fill the inputs or choose the options.
 There are some components that becomes the interface for user to make an input such as text
-box, radio button, check box, combo box etc. Sometimes, the user inputs needs validation
+box, radio button, check box, combo box etc. Sometimes, the user inputs need validation
 before being saved into database or continuing to the next process to make the application
 works correctly.
 
@@ -24,30 +24,36 @@ It can also validate the uploaded files:
 
 ## How To Install
 
-    npm i rc-input-validator --legacy-peer-deps
+For web app, install the following package:
+
+    npm i @react-input-validator/web
+
+For React Native app, install the following package:
+
+    npm i @react-input-validator/native
 
 
-## The Comparison between `rc-input-validator` and The Other System
+## The Comparison between `@react-input-validator` and The Other System
 
 Here, we explain the comparison with the other package or even the *built-in* validation stuff
 in HTML DOM (Document Object Model). Not trying to compete those systems but
-`rc-input-validator` tries to fill the untouched gap.
+`@react-input-validator` tries to fill the untouched gap.
 
 ### Schema-based validator
 This kind of validator is quite popular. Therefore, we talk about it here. The example of this
 kind of validator are [`zod`](https://zod.dev/) and [`ajv`](https://ajv.js.org/). These
 validators can validate a simple data up to a complex nested object. Whereas, in the other
-hand, `rc-input-validator` can only validate the simple values. It's because this package is
-designed to validate the inputs inside the form that will be submitted to the server. In fact,
-the form inputs retain the simple value, mostly a string or an array of string.
+hand, `@react-input-validator` can only validate the simple values. It's because this package
+is designed to validate the inputs inside the form that will be submitted to the server. In
+fact, the form inputs retain the simple value, mostly a string or an array of string.
 
 Another fact, the object of *schema* validator is the data itself. Whereas, the object of
-`rc-input-validator` is the input components (the User Interface widget/control) which is
+`@react-input-validator` is the input components (the User Interface widget/control) which is
 indirectly the data retained by the input components. So, what is the different?
-`rc-input-validator` can show the error message near the invalid input component and change
-their styling (appearance) whether they are invalid or valid.
+`@react-input-validator` can show the error message near the invalid input component and
+change their styling (appearance) whether they are invalid or valid.
 
-Actually, `rc-input-validator` can also to validate the data directly. But it's likely you
+Actually, `@react-input-validator` can also to validate the data directly. But it's likely you
 prefer to use schema-based validator for web API service.
 
 ### *Built-in* HTML DOM (Document Object Model) validation stuff
@@ -67,26 +73,26 @@ method (in this case, you must write a script).
 For input styling, there are some CSS pseudo classes that can be used. You may use `:invalid`
 or `:valid`. Also, `:required` may be useful.
 
-Now, we talk about the conditions in which you may prefer `rc-input-validator`
+Now, we talk about the conditions in which you may prefer `@react-input-validator`
 > These conditions happen, at least on all browsers I've known (Edge, Chrome, Firefox, Safari) 
 - *Built-in* validation only shows the error message for the first invalid input. So, if there
   are some invalid inputs, you must fix one input and then click submit button repetitively
-  until all inputs fixed. In contrast, `rc-input-validator` can show the error messages for
-  all inputs at one click.
+  until all inputs fixed. In contrast, `@react-input-validator` can show the error messages
+  for all inputs at one click.
 - *Built-in* validation shows the error message as a toast popup. In other hand,
-  `rc-input-validator` shows it as a reqular text. Technically. it's a regular HTML element.
-  Therefore, CSS applies to it. So, by using CSS, you can customize how the error message
-  looks like, including like a toast popup.
+  `@react-input-validator` shows it as a reqular text. Technically. it's a regular HTML
+  element. Therefore, CSS applies to it. So, by using CSS, you can customize how the error
+  message looks like, including like a toast popup.
 - *Built-in* validation cannot set the priority of which rule should be evaluated first. For
   example, for the following input:   
   `<input type='text' name='text' required pattern='[a-z]+' minLength={3} />`  
   On Gecko browser, `minLength` is evaluated first and then `pattern`. On Webkit browser,
   the first is `pattern`. All upto the browser, which rule is evaluated first. By using
-  `rc-input-validator`, we can set which rule is evaluated first. It's set by the 
+  `@react-input-validator`, we can set which rule is evaluated first. It's set by the 
   [`priority`](#validationrule_property-priority) property and the order in `rules` array.
-- We cannot set a language other than English for the error messages. Perhaps,
-  `setCustomValidity` may help.
-- `rc-input-validator` offers more advanced validation rules, even you can create your own
+- By using *Built-in* validation, we cannot set a language other than English for the error messages.
+  Perhaps, `setCustomValidity` may help.
+- `@react-input-validator` offers more advanced validation rules, even you can create your own
   rule.
 
 
@@ -105,11 +111,11 @@ import {
 import {
     ValidationContext,
     withValidation,
-} from "rc-input-validator/native";
+} from "@react-input-validator/native";
 import {
     email,
     required,
-} from 'rc-input-validator/rules';
+} from '@react-input-validator/rules';
 import server from './server';
 
 const UserName = withValidation(TextInput, {
@@ -173,11 +179,11 @@ import React from 'react';
 import {
     Form,
     Input,
-} from "rc-input-validator/web";
+} from "@react-input-validator/web";
 import {
     email,
     required,
-} from 'rc-input-validator/rules';
+} from '@react-input-validator/rules';
 
 export default function LoginForm() {
     return (
@@ -201,26 +207,55 @@ that should be placed next to `form` element. For detail explaination, please re
 
 # **API Reference**
 
-## Package Structure <a name="package_structure"></a>
-This package consists of some modules as the entry points to access the objects provided by
-this package. Generally, you must import the components for React Native app from "native"
-module. The components for web app are imported from "web" module. The rule objects are from
-"rules" module.
+## Packages Structure <a name="packages_structure"></a>
+`@react-input-validator` is a package namespace which consists of some packages. Generally,
+you must import the components and functions for React Native app from 
+`@react-input-validator/native` package. The components and functions for web app are imported
+from `@react-input-validator/web` package. The rule objects are from
+`@react-input-validator/rules` package.
 
-The more complete list below shows the modules and the objects exported from them:
-- "rc-input-validator"
+The more complete list below shows the objects exported by the packages:
+- "`@react-input-validator/native`" and "`@react-input-validator/web`" package export:
   + `AsyncFailMessage`
+  + `isDifferentStyle`
   + `isFilled`
   + `str`
-- "rc-input-validator/native"
-  + `isDifferentStyle`
   + `Validation`
   + `ValidationContext`
-  + `withValidation`
+  + type `ContextRef`
+  + type `InputRef`
   + type `StyleProp`
   + type `ValidationOption`
-- "rc-input-validator/rules"
+  + type `Rule`
+  + type `Rules`
+
+- Beside those which are listed above, "`@react-input-validator/native`" also exports:
+  + `withValidation`
+
+- Beside those which are listed above, "`@react-input-validator/web`" also exports:
+  + `CheckBox`
+  + `CheckBoxes`
+  + `Form`
+  + `getStyleProps`
+  + `Input`
+  + `RadioButtons`
+  + `Select`
+  + `TextArea`
+  + `ValidatedInput`
+  + type `CompositeStyleProp`
+  + type `CheckBoxRef` (`ref` for `CheckBox`)
+  + type `CheckBoxesRef` (`ref` for `CheckBoxes`)
+  + type `InpRef` (`ref` for `Input`)
+  + type `RadioButtonsRef` (`ref` for `RadioButtons`)
+  + type `SelectRef` (`ref` for `Select`)
+  + type `TextAreaRef` (`ref` for `TextArea`)
+
+  All `*Ref` type extend `InputRef`.
+
+- "`@react-input-validator/rules`" package exports: 
   + `alwaysValid`
+  + `boolean`
+  + `BooleanValue`
   + `CustomRule`
   + `CustomRuleAsync`
   + `Email`
@@ -246,33 +281,17 @@ The more complete list below shows the modules and the objects exported from the
   + `ruleAsync`
   + `ValidationRule`
   + `ValidationRuleAsync`
-- "rc-input-validator/rules/date"
+
+  This package will be installed automatically if you install
+  "`@react-input-validator/native`" or "`@react-input-validator/web`" package.
+
+- "`@react-input-validator/rules-datetime`" package exports: 
   + `date`
   + `StrDate`
-- "rc-input-validator/rules/time"
   + `Time`
   + `time`
-- "rc-input-validator/types"
-  + type `ContextRef`
-  + type `InputRef`
-- "rc-input-validator/web"
-  + `CheckBoxes`
-  + `Form`
-  + `getStyleProps`
-  + `Input`
-  + `isDifferentStyle`
-  + `RadioButtons`
-  + `Select`
-  + `TextArea`
-  + `ValidatedInput`
-  + `Validation`
-  + `ValidationContext`
-  + type `CompositeStyleProp`
-  + type `HtmlInputRef` (replacement for `HTMLInputElement`)
-  + type `HtmlSelectRef` (replacement for `HTMLSelectElement`)
-  + type `StyleProp`
-  + type `ValidationOption`
-- "rc-input-validator/web/rules"
+
+- "`@react-input-validator/rules-file`" package exports: 
   + `FileCheck`
   + `fileCheck`
   + `fileExt`
@@ -282,8 +301,8 @@ The more complete list below shows the modules and the objects exported from the
 
 
 ## `ValidationContext` <a name="validationcontext"></a>
-> For React Native, it's imported from `"rc-input-validator/native"`   
-> For React web, it's imported from `"rc-input-validator/web"`
+> For React Native, it's imported from `"@react-input-validator/native"`   
+> For React web, it's imported from `"@react-input-validator/web"`
 
 This element can validate all contained [`Input`, `TextArea`, `Select`](#web_input) or inputs
 that have been set by [`withValidation`](#withvalidation). Also, it can clear the validation
@@ -312,7 +331,7 @@ status of those inputs.
   **Type:** `React.ComponentType<{style?: StyleProp, children?: React.ReactNode}>`  
   To make the input and the error message sticks together, both of them are contained inside a
   container element. This `Container` is to specify the container component. For web app, you
-  may need [`getStyleProps`](#function-getStyleProps) to translate from `StyleProp` to
+  may need [`getStyleProps`](#function-getstyleprops) to translate from `StyleProp` to
   `className` and `style` prop so that can be applied to the HTML element (Please read this
   [section](#style_handling-web) for additional information).
   
@@ -345,7 +364,7 @@ status of those inputs.
   }>
   ```
   It's the component that displays the error message. For web app, you may need
-  [`getStyleProps`](#function-getStyleProps) to translate from `style` prop of this component
+  [`getStyleProps`](#function-getstyleprops) to translate from `style` prop of this component
   to HTML `className` and `style` prop (Please read this [section](#style_handling-web) for
   additional information).  
   **Default:** For web, it's a component which renders `span`. `Text` for React Native.   
@@ -424,15 +443,15 @@ status of those inputs.
 In web app, `ValidationContext` should be placed next to `form` element to cover all inputs
 that will be submitted to the server. Because of this, `Form` component exists to wrap both
 components, `ValidationContext` and `form`. By using `onSubmit` event, `Form` component
-arranges `ValidationContext` to execute validation. If any invalid input, the sumbit event
+arranges `ValidationContext` to execute validation. If any invalid input, the submit event
 will be cancelled.
 
 > Coupling `ValidationContext` and `form` element is not a must. If you have another purpose,
 > you may place `ValidationContext` element wherever you want.
 
 `Form` element has all props of `form` element, except `noValidate`. *Built-in* validation is
-always disabled because `rc-input-validator` takes in charge now. Beside `form` props, there
-is an additional prop:
+always disabled because `@react-input-validator` takes in charge now. Beside `form` props,
+there is an additional prop:
 - `contextProps` is an object containing
   [`ValidationContext` props](#validationcontext-properties). This object will be delegated as
   the props of the wrapped `ValidationContext`.
@@ -528,7 +547,7 @@ The list of input validation option properties:
     * `false` if when rendering process
   
     The better comprehension may you get from this
-    [example](https://github.com/atmulyana/rc-input-validator/blob/main/example/native/StatusIconPage.js)
+    [example](https://github.com/atmulyana/react-input-validator/blob/main/example/native/StatusIconPage.tsx)
     and its counterpart for web app.
   
   + `context` is an object which has three members:
@@ -537,9 +556,9 @@ The list of input validation option properties:
     * `flag` is a property to help you to save the state of style changes. It's to avoid
       unneeded repeated action. By default, its value is `0`. The value can be set to any data
       type. Please see this
-      [example](https://github.com/atmulyana/rc-input-validator/blob/main/example/native/StatusIconPage.js)
+      [example](https://github.com/atmulyana/react-input-validator/blob/main/example/native/StatusIconPage.tsx)
       how to use it.
-    * `normalStyle` is a read only property. It's the normal style, that is the original style
+    * `normalStyle` is a read-only property. It's the normal style, that is the original style
       before altered to invalid/valid style. It can be used to revert back the style or to be
       combined with the invalid/valid style. Because, the invalid/valid style is usually based
       on the normal style with different color.
@@ -549,7 +568,7 @@ The list of input validation option properties:
   which represents invalid/valid status. The icon will placed between the input and the error
   message. But, by using absolute positioning, you can place the icon at the left/right side
   of the input. You can see in this
-  [example](https://github.com/atmulyana/rc-input-validator/blob/main/example/native/StatusIconPage.js)
+  [example](https://github.com/atmulyana/react-input-validator/blob/main/example/native/StatusIconPage.tsx)
   or its counterpart for web app.  
 
   **Default:**  
@@ -663,7 +682,7 @@ inputs. However, there are some differents:
   still define a state for `value` prop and its appropriate `onChange` handler.
 - `className` is dropped. CSS class name(s) is also assigned to `style` prop (Please read this
   [section](#style_handling-web) for additional information). It's because how
-  `rc-input-validator` works (related to [`getStyle`](#withvalidation-getstyle)).
+  `@react-input-validator` works (related to [`getStyle`](#withvalidation-getstyle)).
 - New prop: `rules` <a name="web_input-rules"></a> defines the validation rules for the input.
   It can be a [rule](#rule) object or an array of [rule](#rule) objects. Even if this prop can
   be updated in every render, but usually it doesn't change. If it never changes and there is
@@ -686,6 +705,58 @@ set `onChange` handler, `event.target.value` will be an array of `File`.
 
 Data type of `value` prop of `Select` is `string` by default. If `multiple` prop is set,
 `value` data type is an array of `string`.
+
+#### `CheckBox` <a name="checkbox"></a>
+An HTML checkbox (`<input type="checkbox" />`) will be submitted to the server when it's
+checked. If unchecked, its name and value will never be submitted. On server, to check whether
+the checkbox was checked or not, we must check the existence of the request parameter related
+to the checkbox. We can use
+[`has`](https://developer.mozilla.org/en-US/docs/Web/API/FormData/has) method of `FormData`.
+So, we just need the name of the checkbox. If there is no other checbox whose the same name
+the we may ignore the value of the checkbox.
+
+> To deal with a group of checkboxes whose the same name, please use
+> [`CheckBoxes`](#checkboxes) component.
+
+This component, `CheckBox`, on the other hands will be always be submitted to the server.
+The value which is submitted to the server is the string `"true"` or `"false"` which reflects
+whether the checkbox is checked or not. Beside these values, a checkbox may send an empty
+string value if it's in the
+[*indeterminate*](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/indeterminate)
+state. Internally, it uses `<input type="hidden" />`.
+
+`CheckBox` has most of the props of regular HTML checkbox with the exceptions explained in 
+[this section](#web_input). In addition to those notes, there are some more notes for
+`CheckBox`:
+- `checked` prop is dropped. It's covered by `value` prop.
+- No `type` prop because it's always "checkbox".
+- `value` can be set with a boolean value `true` or `false` to set the checkbox to be checked
+  or unchecked (the same way as we use `checked` prop of a regular checkbox). Beside a boolean
+  value, we may set `value` to `null` which makes the checbox to be *indeterminate* state.
+
+The *indeterminate* state is not only able to be set programmatically by setting `value` prop
+to `null`, but it can also be set by the user action. When the checkbox is checked, if it's
+clicked then it turns to the *indeterminate* state. If it's clicked again, it will be
+unchecked. The next click will turn the checkbox to be checked, and so on.
+
+The example below shows the [rules](#rule) that may be applied to `CheckBox` element:
+```javascript
+  <CheckBox
+      name='agree'
+      rules={[required, boolean, rule(isAgree => isAgree, "You must agree!!!")]}
+      style={{
+          $cover: styles.flex3,
+          $input: {
+              alignSelf: 'flex-start'
+          }
+      }}
+      value={null}
+  />
+```
+[`required`](#required) rule disallows the checbox to be in the *indeterminate* state.
+[`boolean`](#boolean) rule makes sure the value can be interpreted as "true" or "false" and,
+if needed, converts it to a boolean value. This rule is really needed if the validation
+happens on the server because the value is sent as a string value.
 
 #### `CheckBoxes` <a name="checkboxes"></a>
 `CheckBoxes` is a group of some `<Input type='checkbox' />` whose the same `name` prop.
@@ -723,7 +794,7 @@ Example:
 The above example will show four checkboxes labeled as 'Music', 'Movie', 'Sport' and 'Other'
 with 'Music' and 'Movie' are checked.
 
-#### `RadioButtons`
+#### `RadioButtons` <a name="radiobuttons"></a>
 `RadioButtons` is a group of some `<Input type='radio' />` whose the same `name` prop. In fact,
 radio input should be in a group to make a choice. Sometimes, this input is preferred
 representation of `<Select>` if there are only the slight number of options. This component
@@ -755,17 +826,22 @@ defined by `Component` prop.
 
 `Component` prop is only read at mounting. In the next renders, this prop is ignored.
 
-### Methods and properties of the input reference (the object that we get from `ref` prop): <a name="withvalidation_methods_property"></a>
-- `clearValidation` <a name="withvalidation_method-clearvalidation"></a>   
+### Methods and properties of the input reference (the object that we get from `ref` prop): <a name="withvalidation_methods_properties"></a>
+- `clearValidation()` <a name="withvalidation_method-clearvalidation"></a>   
   It's to clear validation status. The error message will disappear and the input style is
   reverted to normal. After executing this method,
   [`isValid`](#withvalidation_property-isvalid) will be reset to `true` even if the input is
   invalid. If [`auto`](#withvalidation-auto) validation is disabled, this method will be
   called when the user edits the input value right after the validation.
 
-- `getErrorMessage` <a name="withvalidation_method-getErrorMessage"></a>   
+- `getErrorMessage()` <a name="withvalidation_method-geterrormessage"></a>   
   This method returns the error message being displayed for the input. It returns an empty
   string if no error.
+
+- `getValue()` <a name="withvalidation_method-getvalue"></a>  
+  If the original input ref has a property named `value` then this method will return its
+  value. Otherwise, the returned value is from the [`getValue`](#withvalidation-getvalue)
+  function defined in option parameter.
 
 - `isValid` <a name="withvalidation_property-isvalid"></a>  
   It shows the validity status of input. It's `true` if valid and `false` if invalid. The
@@ -776,6 +852,12 @@ defined by `Component` prop.
 - `name` <a name="withvalidation_property-name"></a>  
   It's the name of input. The value of this property is the same as that specified for
   [`name`](#withvalidation-name) option or `name` prop of web input.
+
+- `resultValue` <a name="withvalidation_property-resultvalue"></a>   
+  It is the value yielded by the validation process if the input is valid. So, it's trusted
+  after calling [`validate`](#withvalidation_method-validate) or
+  [`validateAsync`](#withvalidation_method-validateasync). The value is the same as one from
+  [`resultValue`](#validationrule_property-resultValue) of the last examined rule object.
 
 - `setErrorMessage(message)` <a name="withvalidation_method-seterrormessage"></a>  
   This method can set the error message for the input without calling
@@ -834,7 +916,7 @@ defined by `Component` prop.
   you want to use `setErrorMessage` method but doesn't need to apply any validation rule, you
   can use [`alwaysValid`](#alwaysvalid) rule.
 
-- `validate` <a name="withvalidation_method-validate"></a>  
+- `validate()` <a name="withvalidation_method-validate"></a>  
   This method is to validate the input based on the specified [rules](#withvalidation-rules).
   Below is the example how to validate input when it's lost focus. 
 
@@ -844,13 +926,13 @@ defined by `Component` prop.
   throw an error if there is a
   [rule object which does the asynchronous validation](#validationruleasync).
 
-- `validateAsync` <a name="withvalidation_method-validateasync"></a>  
+- `validateAsync()` <a name="withvalidation_method-validateasync"></a>  
   As [`validate`](#withvalidation_method-validate), this method is also to validate the input
   based on the specified [rules](#withvalidation-rules) but the process is executed in
   asynchronous mode. This method returns a `Promise` object that will resolve to `true` if the
   input value is valid or `false` if otherwise.
 
-If the original input has the same methods and property as listed above, they will be
+If the original input has the same methods and properties as listed above, they will be
 overriden. If you want to access the overridden method/property of original input, follow the
 example below:
 
@@ -866,14 +948,14 @@ example below:
 
 
 ## `Validation` Component <a name="validation"></a>
-> For React Native, it's imported from `"rc-input-validator/native"`   
-> For React web, it's imported from `"rc-input-validator/web"`
+> For React Native, it's imported from `"@react-input-validator/native"`   
+> For React web, it's imported from `"@react-input-validator/web"`
 
 `Validation` component can be used to validate a value without wrapping an input component.
 It has some properties which are the same as
 `withValidion` [option](#withvalidation-option-properties). These properties are `auto`,
-`errorTextStyle`, `lang` and `rules`. The purpose of these properties are exactly the same as
-`withValidion` option's. These properties are *write-once*. They are only set when the
+`errorTextStyle`, `lang`, `name` and `rules`. The purpose of these properties are exactly the
+same as `withValidion` option's. These properties are *write-once*. They are only set when the
 component is mounted. If you change the properties in the next render, it won't have effect.
 
 Beside the properties mentioned before, there are two more properties:
@@ -885,15 +967,15 @@ Beside the properties mentioned before, there are two more properties:
   dynamic value.
 
 `Validation` object reference also has the same methods and property as
-[those](#withvalidation_methods_property) owned by input component reference resulted by
+[those](#withvalidation_methods_properties) owned by input component reference resulted by
 `withValidation`
 
 **Example:**
 
     import React from 'react';
     import {... TextInput, ...} from 'react-native';
-    import {Validation, ValidationContext} from "rc-input-validator/native";
-    import {email, required} from 'rc-input-validator/rules';
+    import {Validation, ValidationContext} from "@react-input-validator/native";
+    import {email, required} from '@react-input-validator/rules';
     ...
 
     export default function Form() {
@@ -1030,8 +1112,8 @@ variable. For example:
     }
 
 ### React Web <a name="style_handling-web"></a>
-Firstly, this package was designed for React Native. But then, the writer thought that there
-is a need to port the package for React web. There is a big obstacle to rewrite this package
+Firstly, this library was designed for React Native. But then, the writer thought that there
+is a need to port the library for React web. There is a big obstacle to rewrite this library
 to support web app that is the style handling. The style in web, which is called CSS
 (Cascading Style Sheet) is very complicated. There are many *shorthand* CSS properties. A
 *shorthand* CSS property represents some other specific properties. It's not simple process to
@@ -1041,7 +1123,7 @@ set to the input and its [`Container`](#withvalidation-container).
 Beside that, an element style is determined by a lot of *selectors*: tag/element name, the
 existence or the value of a prop/attribute or even by the parent/ancestor element and the
 sibiling elements. However, the are two main props to define the style: `className` and
-`style`. This package will focus on those two props.
+`style`. This library will focus on those two props.
 
 Based on the above explanation, we make the following approach. Let's say we define
 `StyleProp` that is the data type for `style` prop of individual component (the input or its
@@ -1059,7 +1141,7 @@ and let `Container` uses the default style. `StyleProp` itself is defined as fol
 If it's `string` then it's the CSS class name(s) (will be assigned to `className` prop of the
 underlying HTML element). If it's `CSSProperties` then it's inline style (will be assigned to
 `style` prop of underlying HTML element). If we want to set both, we use `{$class, $style}`.
-This package provides [`getStyleProps`](#function-getStyleProps) function to convert
+This library provides [`getStyleProps`](#function-getstyleprops) function to convert
 `StyleProp` or array of `StyleProp` to be `{className, style}` object. This function may be
 useful if you want to implement [`setStatusStyle`](#withvalidation-setstatusstyle) function.
 
@@ -1068,10 +1150,10 @@ useful if you want to implement [`setStatusStyle`](#withvalidation-setstatusstyl
 In some cases, we need to execute the validation process in asynchronous mode. The prominent
 example is when we need to call back the server to check the validity of input value. May be,
 we need to check the database to ensure the input is valid or not. For making an HTTP request
-purpose, this package has provided [`httpReq`](#httpreq) rule.
+purpose, this library has provided [`httpReq`](#httpreq) rule.
 
 To make the process of validation in asynchronous mode, first thing you need is a rule object
-that can validate a value asynchronously. This package has provided some rule objects that can
+that can validate a value asynchronously. This library has provided some rule objects that can
 make the process asynchronously. One of them has been mentioned before, that is `httpReq`. The
 another one is [`ruleAsync`](#ruleasync). If these rule objects don't satisfy you, create your
 own rule class which inherits [`ValidationRuleAsync`](#validationruleasync) class.
@@ -1101,10 +1183,10 @@ The last statement must be inside an `async` function.
 
 
 ## Server-side Validation <a name="server-side_validation"></a>
-`rc-input-validator` pakcage is to validate inputs in React Native app or an HTML form. In
-other words, it's for client-side validation. By existence of client-side validation, we are
-more confident to submit data to the server. However, is it enough? Absolutely not. A hacker
-can make a request without using our app and use an invalid data. So, the server-side
+`@react-input-validator` library is to validate inputs in React Native app or an HTML form. In
+other words, it's for client-side validation. By the existence of client-side validation, we
+are more confident to submit data to the server. However, is it enough? Absolutely not. A
+hacker can make a request without using our app and use an invalid data. So, the server-side
 validation is always needed exactly as if we are not using a rich user interface application
 (like an oldish web app).
 
@@ -1119,7 +1201,7 @@ different preference and there may be a situation it's needed.
 Now, if we agree that the server-side validation is needed then how to notify user if there
 is one or more invalid inputs. You may use an alert dialog or a Toast popup. But, it may be
 better if we show each error message below the corresponding input with hightlighting style
-like this package does in client-side validation. It's possible by the favor of
+like this library does in client-side validation. It's possible by the favor of
 [`setErrorMessage`](#validationcontext_method-seterrormessage) method. Follow the example
 below. In the example, if there is one or more invalid inputs, the server returns status code
 400 (Bad Request) and the response body is a JSON data key-ed by the invalid input
@@ -1164,18 +1246,17 @@ below. In the example, if there is one or more invalid inputs, the server return
 ```
 
 To keep consistency, the logic used for the server-side validation must be the same as that
-used by client-side validation. If you use Node server, you may use `rc-input-validator`
-pakcage. However, if without TypeScript, you should import the rule objects and the needed
-fuctions from "dist" directory. For example:
+used by client-side validation. If you use Node server, you may use `@react-input-validator`
+library. For example:
 ```javascript
     const {
         validate
-    } = require("rc-input-validator/dist/helpers");
+    } = require("@react-input-validator/helpers");
     const {
         required,
         rule,
         length,
-    } = require('rc-input-validator/dist/rules');
+    } = require('@react-input-validator/rules');
 ```
 To validate an input, follow the example below:
 ```javascript
@@ -1200,42 +1281,6 @@ for example, if we need to connect to database to check the validity of input. D
 connection is usually in asynchronous mode.
 
 
-## Functions <a name="functions"></a>
-
-The functions here can be imported from the package.
-
-### `getStyleProps(...styles)` <a name="function-getStyleProps"></a>
-This function is provided by "web" module. This function converts `StyleProp` value as
-described in this [section](#style_handling-web) to be a value whose type:
-
-    {className: string | undefined, style: CSSProperties | undefined}
-
-so that it can be assigned as the props of an HTML element. This function can more than one
-parameter or an array:
-
-    getStyleProps(style1, style2, ...)
-
-The resulted value will have all CSS classes defined by all parameters. For inline style, if
-there is the same CSS property from different parameter, the property value from the parameter
-on the right will override the one from the parameter on the left.
-
-### `isFilled(value)` <a name="function-isFilled"></a>
-This function is used by [`required`](#required) rule to check whether a value is empty or not.
-A value is considered as empty if it is `null`, `undefined`, a string only contains white
-space(s) or an empty array. An array containing only one empty element is also considered
-empty. This funtion returns `false` if `value` is empty.
-
-### `str(template, valueMap)` <a name="function-str"></a>
-This function is to construct a string from a template string and a map of values. In the
-template string contains the placeholders for variables to be replaced by the real value. The
-placeholder is in format `${variable_name}`. The real values is in `valueMap` parameter. For
-example:
-
-    str('${name} must be at least ${min}', {name: 'count', min: 5})
-
-will return string `"count must be at least 5"`.
-
-
 ## Rule Object <a name="rule"></a>
 
 Rule object defines how to validate the input value. For example whether it's required (cannot
@@ -1246,11 +1291,11 @@ some rule objects so that the input value must meet some conditions to be valid.
 `withValidation` [rules](#withvalidation-rules) option can be a single rule
 object or an array of rule objects.
 
-This package has some [*built-in* rule](#builtin_rules) objects which are ready
-to use. These rule objects are explained in the next sections. You can create your own rule
-object by creating a class that extends [`ValidationRule`](#validationrule) or
-[`ValidationRuleAsync`](#validationruleasync). Most rule objects are imported from
-`'rc-input-validator/rules'`.
+This libray has packaged some [rule](#rules) objects which are ready to use. These
+rule objects are explained in the next sections. You can create your own rule object by
+creating a class that extends [`ValidationRule`](#validationrule) or
+[`ValidationRuleAsync`](#validationruleasync). The common rule objects are imported from
+`@react-input-validator/rules` package.
 
 ### `ValidationRule` <a name="validationrule"></a>
 
@@ -1264,16 +1309,39 @@ properties and methods explained here.
   property can be a template string that can include some properties of the defined rule
   object. For example: `"${name} is invalid. ${value} is not valid phone number"`.
 
+- `inputValues` <a name="validationrule_property-inputvalues"></a>  
+  It's an object key-ed by all [`name`](#withvalidation-name) of inputs inside the same
+  [context](#validationcontext) and the value for each key is the coresponding input value
+  which is from [`getValue`](#withvalidation_method-getvalue) meethod. It's useful for
+  [`validate`](#validationrule_method-validate) method if it needs another input value to
+  validate. For example, if we want to create a custom rule to validate a confirmation
+  password, `validate` method may look like this:
+  ```javascript
+  validate() {
+    this.isValid = this.value == this.inputValues['password'];
+    return this;
+  }
+  ```
+  This property is set by [`validate`](#withvalidation_method-validate) or
+  [`validateAsync`](#withvalidation_method-validateasync) method of the input ref.
+
+- `isArrayAsSingle` <a name="validationrule_property-isarrayassingle"></a>  
+  Read-only. It's value is set by `arrayAsSingle` method. Please read the explanation of
+  [`arrayAsSingle`](#validationrule_method-arraysssingle) for further information.  
+  **Default:** `false` except for [`length`](#length) rule and [file](#rules_file) rules, it's
+  `true`.
+
 - `isValid` <a name="validationrule_property-isvalid"></a>  
   It's `true` if valid and `false` if invalid. It's set by
   [`validate`](#validationrule_method-validate) method. Therefore, it's trusted just after
   calling [`validate`](#validationrule_method-validate) method.
 
 - `lang`  
-   is a function to translate the error message to the active languange. By default, the
-   message is in english. It will be set by [`validate`](#withvalidation_method-validate)
-   method of input ref that will be the same as context [`lang`](#validationcontext-lang) or
-   `widthValidation` [`lang`](#withvalidation-lang) option.
+  is a function to translate the error message to the active languange. By default, the
+  message is in english. It will be set by [`validate`](#withvalidation_method-validate) or
+  [`validateAsync`](#withvalidation_method-validateasync) method of the input ref that will
+  be the same as context [`lang`](#validationcontext-lang) or `widthValidation`
+  [`lang`](#withvalidation-lang) option.
 
 - `messageFunc` <a name="validationrule_property-messagefunc"></a>  
   Read-only. It's a function which returns the error message. This error message overwrites
@@ -1282,9 +1350,9 @@ properties and methods explained here.
   [`setMessageFunc`](#validationrule_method-setmessagefunc) method.
 
 - `name` <a name="validationrule_property-name"></a>  
-  is the name of validated input. It's set by [`validate`](#withvalidation_method-validate)
-  method of input ref which is the same as `withValidation` [`name`](#withvalidation-name)
-  option or `name` prop of the web input.
+  is the name of validated input. It's set by [`validate`](#withvalidation_method-validate) or
+  [`validateAsync`](#withvalidation_method-validateasync) method of the input ref which is the
+  same as `withValidation` [`name`](#withvalidation-name) option or `name` prop of the web input.
 
 - `priority` <a name="validationrule_property-priority"></a>  
   Read-only. If we specify some rules to validate the input, `priority` determines which rule
@@ -1294,10 +1362,10 @@ properties and methods explained here.
   [`rules`](#web_input-rules) prop of the web input. The value of this property is set by
   [`setPriority`](#validationrule_method-setpriority).
 
-  By default, the *built-in* rules have the priority as following (ordered based on which is
-  examined first):
+  By default, the rules packaged in this library have the priority as following (ordered based
+  on which is examined first):
   + `required`, `required.if` (the priority cannot be changed, always the highest)
-  + `date`, `email`, `length`, `lengthMax`, `numeric`, `time`
+  + `boolean`, `date`, `email`, `length`, `lengthMax`, `numeric`, `time`
   + `integer`
   + `max`, `min`
   + `regex`
@@ -1309,13 +1377,14 @@ properties and methods explained here.
 
 - `value` <a name="validationrule_property-value"></a>  
   is the input value that is validated. It's set by
-  [`validate`](#withvalidation_method-validate) method of input ref.
+  [`validate`](#withvalidation_method-validate) or
+  [`validateAsync`](#withvalidation_method-validateasync) method of the input ref.
 
 - `resultValue` <a name="validationrule_property-resultValue"></a>  
   After calling [`validate`](#validationrule_method-validate), `resultValue` will save a value
-  with valid data type. For example, for `numeric` rule, it will save a number value, not
+  with the valid data type. For example, for `numeric` rule, it will save a number value, not
   string like [`value`](#validationrule_property-value). The value of this prop is the value
-  that will be axamined by the next rule. So, the original input value is only examined by the
+  that will be examined by the next rule. So, the original input value is only examined by the
   first rule.
   
   By default, `resultValue` is the same as [`value`](#validationrule_property-value) (with the
@@ -1323,6 +1392,42 @@ properties and methods explained here.
 
 #### Methods: <a name="validationrule_methods"></a>
 All methods returns the instance of the rule object.
+- `arrayAsSingle(isSingle = true)` <a name="validationrule_method-arraysssingle"></a>  
+  A web request may have some parameter whose the same names. If that happens, usually these
+  parameters are treated as a single parameter which has an array value.
+
+  The functions which are responsible to process the validation in `@react-input-validator`
+  library, will apply the rules to each entry in a validated array value because most of rules
+  are to validate a single value. If a rule object is designed to validate an array value, not
+  each entry inside it, `arrayAsSingle` must be invoked with a `true` value as the
+  parameter (default).
+
+  Call `arrayAsSingle` before assigned to [`rules`](#withvalidation-rules) property of
+  `withValidation` option object or [`rules`](#web_input-rules) prop of a web input. For
+  example:
+  ```
+  rules={[
+    ...,
+    new ARule().arrayAsSingle(),
+    ...,
+  ]}
+  ```
+  > PLease see also [`arrayAsSingle`](#function-arrayassingle) function.
+
+  > A rule object always validate [`value`](#validationrule_property-value) as is. If `value`
+  > is an array then it will validate that array, not each entry inside it.
+  > [`isArrayAsSingle`](#validationrule_property-isarrayassingle) has the effect if calling
+  > [`validate`](#withvalidation_method-validate) or
+  > [`validateAsync`](#withvalidation_method-validateasync) method of the input ref. In the
+  > following example `arrayAsSingle` has no effect:
+  > ```javascript
+  > length(2).arrayAsSingle(false).setValue(['a', 'b']).validate()
+  > ```
+  > The value in the above example is valid even if you expect it invalid.
+
+  > Calling `arrayAsSingle` on [file](#rules_file) rules will throw an error. These rules
+  > always validate an array as a single value.
+
 - `setErrorMessage(message)` <a name="validationrule_method-seterrormessage"></a>  
   is to set [`messageFunc`](#validationrule_property-messagefunc) property to be
   `() => message`. It doesn't set [`errorMessage`](#validationrule_property-errormessage)
@@ -1371,7 +1476,7 @@ or in unit test:
 #### Example: <a name="validationrule_example"></a>
 An example class which you may create to validate a credit card number:
 ```javascript
-import {ValidationRule} from 'rc-validator/rules';
+import {ValidationRule} from '@react-input-validator/rules';
 const validator = require("card-validator");
 
 export class CreditCardNumber extends ValidationRule {
@@ -1415,52 +1520,15 @@ We change `validate` method in the example before to be:
     }
 ```
 
-### *Built-in* Rules <a name="builtin_rules"></a>
+### `@react-input-validator/rules` package <a name="rules"></a>  
+> This package is automatically installed if you install `@react-input-validator/native` or
+> `@react-input-validator/web` package.
 
-#### `new StrDate(pattern, locale, isNet)` or `date(pattern, locale, isNet)` <a name="date"></a>
-> You can import these rules from `'rc-input-validator/rules/date'`
-
-This rule is to check the input value whether it's a valid date value. The input value is a
-`string`. The [`resultValue`](#validationrule_property-resultValue) is a `Date` object.  
-**Parameters:** <a name="date_parameters"></a>
-- `pattern` is the valid pattern for the input string. The pattern is explained
-  [here](https://atmulyana.github.io/JsSimpleDateFormat/JsSimpleDateFormat-Manual.html#Date_and_Time_Patterns).
-  If you read the pattern documentation, the pattern may also include time. Indeed, this rule
-  may validate the time along with the date. The default pattern is "yyyy-MM-dd".
-- `locale` is the locale for the input string. The default is "en".
-- `isNet` determines whether to use *Java-compatible* or *.NET-compatible* pattern. The
-  default is `false` (uses *Java-compatible* pattern).
-
-**Property:**
-- `valueAsDate` is to get the `Date` object which reflects the current
-  [`value`](#validationrule_property-value). It returns `null` if `value` is invalid. This
-  property doesn't execute [`validate`](#validationrule_method-validate) method. Therefore,
-  accessing this property won't change [`resultValue`](#validationrule_property-resultValue).
-
-**Method:**
-- `parse(strDate)` is to parse a string value to be a `Date` object using the defined
-  [pattern](#date_parameters) for this rule. This method is useful to determine the constraint
-  for the next rule such as [`max`](#max) or [`min`](#min).
-
-> If you use `<input type="date" />` for the date input in web app, need to know that this
-> input will have an empty string value if the input value is invalid (not the same as the
-> displayed value). Therefore, it will be invalidated by [`required`](#required) rule or if
-> not required, the input value will be valid (because of optional). To avoid this problem,
-> follow the example below:
-> ```
-> const rules = [new Required().setErrorMessage('Invalid date'), date(), ...];
-> function DateForm() {
->   return <Form ...>
->      ...
->      <Input type="date" rules={rules}  ... />
->      ...
->   </Form> 
-> }
->```
-> `Required` rule seems enough if you want only to check the date value is valid or not.
-> `date` rule is still needed if you want to check the value using more rules, such as
-> [`min`](#min) or [`max`](#max) because `date` rule will have
-> [`resultValue`](#validationrule_property-resultValue) as a `Date` object.
+#### `new BooleanValue()` or `boolean` <a name="boolean"></a>
+This rule will consider a value is valid if it's a boolean value or string `"true"` or
+`"false"` (incase sensitive). [`resultValue`](#validationrule_property-resultValue) will have
+the boolean data type. This rule is useful when dealing with [`CheckBox`](#checkbox),
+especially, if the validation on the server.
 
 #### `new Email()` or `email` <a name="email"></a>
 The rule for examined the input value whether it's a valid email address or not.
@@ -1553,7 +1621,8 @@ number or `Date`. If `minValue` is number but the input value is string (such as
 - `min` is the minimum value (the same as `minValue` parameter of constructor)
 
 #### `new Numeric()` or `numeric` <a name="numeric"></a>
-To assess if the input value is numeric or not.
+To assess if a string value is numeric or not.
+[`resultValue`](#validationrule_property-resultValue) will have the number data type.
 
 #### `new Regex(pattern, flags)` or `regex(pattern, flags)` <a name="regex"></a>
 To examine if `pattern` applies to the input value. `pattern` can be a `RegExp` object or a
@@ -1577,8 +1646,14 @@ won't be examined.
 
 #### `Required.If(predicate)` or `required.if(predicate)` <a name="required.if"></a>
 It's the same as [`required`](#required) rule but under a condition. The `predicate` parameter
-is a function. If it returns `true` then the input is required. Otherwise, it's optional. The
-parameter for `predicate` function is the input value.
+is a function. If it returns `true` then the input is required. Otherwise, it's optional.
+
+The parameters for `predicate` function:
+- The input value (the same as [`value`](#validationrule_property-value) property of the rule
+  object).
+- An object which has properties: `{inputValues, name}`. They are the same as
+  [`inputValues`](#validationrule_property-inputvalues) and
+  [`name`](#validationrule_property-name) of the rule object.
 
 #### `Required.If(() => false)` or `alwaysValid` <a name="alwaysvalid"></a>
 Use this rule if you want to only use
@@ -1588,13 +1663,22 @@ rules.
 #### `new CustomRule(predicate, errorMessage)` or `rule(predicate, errorMessage)` <a name="customrule"></a>
 If you need more complicated logic to assess whether the input value is valid or invalid, this
 rule fits for it. The `predicate` parameter is a function to asses the input value. The
-parameter of this function is the input value. The `predicate` function may return `boolean`
-(`true` is valid, `false` is invalid) or a string. If it returns a string then the input is
-considered as invalid. The returned string is the error message (by this way, you may create
-different error message for different condition). The `errorMessage` parameter is used as the
-error message if `predicate` function doesn't return a string (returns `false`). If you set
+`predicate` function may return `boolean` (`true` is valid, `false` is invalid) or a string.
+If it returns a string then the input is considered as invalid. The returned string is the
+error message (by this way, you may create different error message for different condition).
+
+`predicate` function parameters:
+- The input value which is the same as [`value`](#validationrule_property-value) property of
+  the rule object.
+- An object which has properties: `{inputValues, name}`. They are the same as
+  [`inputValues`](#validationrule_property-inputvalues) and
+  [`name`](#validationrule_property-name) of the rule object.
+
+The `errorMessage` parameter is used as the error message if `predicate` function doesn't
+return a string (returns `false`). If you set
 [`messageFunc`](#validationrule_property-messagefunc) then the error message will be taken
 from `messageFunc`.  
+
 **Example:** <a name="rule_example"></a>  
 The example below is the validator to check whether the number is between 5 to 9. If not then
 the value is invalid. If the value is not a number then it return the error message "Not valid
@@ -1622,8 +1706,9 @@ rule(
 #### `new CustomRuleAsync(predicate, errorMessage)` or `ruleAsync(predicate, errorMessage)` <a name="ruleasync"></a>
 It is almost the same as [`rule`](#customrule) rule. The difference is it runs in asynchronous
 mode. The `predicate` function for this rule doesn't return anything. As a replacement, to set
-the validation status (valid/invalid or the error message), it has a second parameter which is
-a function. The validation status is set using this function.  
+the validation status (valid/invalid or the error message), it uses the second parameter as a
+callback function. The third parameter is an object like the second parameter of `predicate`
+of [`rule`](#customrule).  
 **Example:** <a name="ruleasync_example"></a>   
 As an example, we change [the example for `rule`](#rule_example) to be an appropriate one for
 `ruleAsync`.
@@ -1648,9 +1733,52 @@ ruleAsync(
 )
 ```
 
-#### `new Time(pattern, locale)` or `time(pattern, locale)` <a name="time"></a>
-> You can import these rules from `'rc-input-validator/rules/time'`
+### `@react-input-validator/rules-datetime` package <a name="rules_datetime"></a>
 
+#### `new StrDate(pattern, locale, isNet)` or `date(pattern, locale, isNet)` <a name="date"></a>
+This rule is to check the input value whether it's a valid date value. The input value is a
+`string`. The [`resultValue`](#validationrule_property-resultValue) is a `Date` object.  
+**Parameters:** <a name="date_parameters"></a>
+- `pattern` is the valid pattern for the input string. The pattern is explained
+  [here](https://atmulyana.github.io/JsSimpleDateFormat/JsSimpleDateFormat-Manual.html#Date_and_Time_Patterns).
+  If you read the pattern documentation, the pattern may also include time. Indeed, this rule
+  may validate the time along with the date. The default pattern is "yyyy-MM-dd".
+- `locale` is the locale for the input string. The default is "en".
+- `isNet` determines whether to use *Java-compatible* or *.NET-compatible* pattern. The
+  default is `false` (uses *Java-compatible* pattern).
+
+**Property:**
+- `valueAsDate` is to get the `Date` object which reflects the current
+  [`value`](#validationrule_property-value). It returns `null` if `value` is invalid. This
+  property doesn't execute [`validate`](#validationrule_method-validate) method. Therefore,
+  accessing this property won't change [`resultValue`](#validationrule_property-resultValue).
+
+**Method:**
+- `parse(strDate)` is to parse a string value to be a `Date` object using the defined
+  [pattern](#date_parameters) for this rule. This method is useful to determine the constraint
+  for the next rule such as [`max`](#max) or [`min`](#min).
+
+> If you use `<input type="date" />` for the date input in web app, need to know that this
+> input will have an empty string value if the input value is invalid (not the same as the
+> displayed value). Therefore, it will be invalidated by [`required`](#required) rule or if
+> not required, the input value will be valid (because of optional). To avoid this problem,
+> follow the example below:
+> ```
+> const rules = [new Required().setErrorMessage('Invalid date'), date(), ...];
+> function DateForm() {
+>   return <Form ...>
+>      ...
+>      <Input type="date" rules={rules}  ... />
+>      ...
+>   </Form> 
+> }
+>```
+> `Required` rule seems enough if you want only to check the date value is valid or not.
+> `date` rule is still needed if you want to check the value using more rules, such as
+> [`min`](#min) or [`max`](#max) because `date` rule will have
+> [`resultValue`](#validationrule_property-resultValue) as a `Date` object.
+
+#### `new Time(pattern, locale)` or `time(pattern, locale)` <a name="time"></a>
 This rule is to check the input value whether it's a valid time value. The input value is a
 `string`. The [`resultValue`](#validationrule_property-resultValue) is a `Date` object.  
 **Parameters:** <a name="time_parameters"></a>
@@ -1690,9 +1818,10 @@ This rule is to check the input value whether it's a valid time value. The input
 > [`min`](#min) or [`max`](#max) because `time` rule will have
 > [`resultValue`](#validationrule_property-resultValue) as a `Date` object.
 
-### *Built-in* Rules from "web" Module <a name="web_builtin_rules"></a>
 
-Form `"rc-input-validator/web/rules"` module, we can import some rules useful for the web app,
+### `@react-input-validator/rules-file` package <a name="rules_file"></a>
+
+Form `@react-input-validator/rules-file` package, we can import some rules useful for the web app,
 especially to examine `<Input type="file" />`.
 
 > These rules are not exclusively for a web app. If you have an input component in a React
@@ -1702,9 +1831,9 @@ especially to examine `<Input type="file" />`.
 This rule is to check whether the file has the valid extension name or not.  
 **Parameters:** <a name="fileext_parameters"></a>
 - `extension` is the valid extension of file name. This parameter may be a `string` or an
-  array of `string`. If it's a single value then the the file extension name must be equal to
-  the specified parameter. If this parameter is an array then the the file extension name must
-  be one of the listed name. For example, if we define the parameter as follow:  
+  array of `string`. If it's a single value then the file extension name must be equal to the
+  specified parameter. If this parameter is an array then the file extension name must be one
+  of the listed names. For example, if we define the parameter as follow:  
   <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>`fileExt['doc', 'docx', 'pdf']`   
   then `mydoc.doc` or `mydoc.pdf` is valid but `mydoc.jpg` is invalid.
 
@@ -1778,15 +1907,68 @@ fileCheck(
 )
 ``` 
 
+
+## Functions <a name="functions"></a>
+From `@react-input-validator/native` and `@react-input-validator/web` package, you may import
+the following functions:
+
+### `arrayAsSingle` <a name="#function-arrayassingle"></a>  
+If an input has an array value and wants all rules applied to it must consider an array as a
+single value then [`arrayAsSingle`](#validationrule_method-arraysssingle) method of each rule
+object must be invoked. If there are many rules then it will be inconvinient. This function
+makes it simpler, you only need to type `arrayAsSingle` once as shown in the following example:
+```
+rules={arrayAsSingle([
+    required,
+    length(1, 2),
+    rule(
+        vals => {
+            return vals.length < 2 || vals[0] < vals[1];
+        }
+    )
+])}
+```
+
+### `getStyleProps(...styles)` <a name="function-getstyleprops"></a>
+This function is only provided by `@react-input-validator/web` package. This function converts
+`StyleProp` value as described in this [section](#style_handling-web) to be a value whose type:
+
+    {className: string | undefined, style: CSSProperties | undefined}
+
+so that it can be assigned as the props of an HTML element. This function can accept more than
+one parameter or an array:
+
+    getStyleProps(style1, style2, ...)
+
+The resulted value will have all CSS classes defined by all parameters. For inline style, if
+there is the same CSS property from different parameter, the property value from the parameter
+on the right will override the one from the parameter on the left.
+
+### `isFilled(value)` <a name="function-isfilled"></a>
+This function is used by [`required`](#required) rule to check whether a value is empty or not.
+A value is considered as empty if it is `null`, `undefined`, a string only contains white
+space(s) or an empty array. An array containing only one empty element is also considered
+empty. This funtion returns `false` if `value` is empty.
+
+### `str(template, valueMap)` <a name="function-str"></a>
+This function is to construct a string from a template string and a map of values. In the
+template string contains the placeholders for variables to be replaced by the real value. The
+placeholder is in format `${variable_name}`. The real values is in `valueMap` parameter. For
+example:
+
+    str('${name} must be at least ${min}', {name: 'count', min: 5})
+
+will return string `"count must be at least 5"`.
+
+
 ## Messages <a name="messages"></a>
 
-Each *built-in* [rule object](#rule) has default error message. You must inspect them in the
-case that you want to translate them to the other languages. The messages can be found in
-`messages.ts`. The messages are listed in the following code:
+Each [rule object](#rule) in this library has default error message. You must inspect them in
+the case that you want to translate them to the other languages. The messages can be found in
+`packages/rules/messages.ts`. The messages are listed in the following code:
 ```javascript
 {
     asyncFail: 'cannot validate',
-    date: 'invalid date and/or time',
     email: 'invalid email address',
     httpReq: {
         disconnected: "Can't connect to server",
@@ -1801,10 +1983,15 @@ case that you want to translate them to the other languages. The messages can be
     min: 'minimum ${min}',
     numeric: 'invalid numeric value',
     required: 'required',
+}
+```
+also in `packages/rules-datetime/messages.ts` and `packages/rules-file/messages.ts`:
+```javascript
+{
+    date: 'invalid date and/or time',
     time: 'invalid time'
 }
 ```
-and also in `web/messages.ts`:
 ```javascript
 {
     fileCheck: 'invalid file',
@@ -1823,7 +2010,7 @@ change 'required' message to be 'must be filled'. To do that, insert some codes 
     import App from './App';
     import {name as appName} from './app.json';
 
-    <b style="background-color:yellow">import messages from 'rc-input-validator/messages';</b>
+    <b style="background-color:yellow">import messages from '@react-input-validator/rules/messages';</b>
     <b style="background-color:yellow">messages.required = 'must be filled';</b>
 
     AppRegistry.registerComponent(appName, () => App);
@@ -1846,4 +2033,4 @@ To make it works, you must also set the input name in `withValidation`
 ## Example App <a name="example_app"></a>
 
 There is an example app you can find
-[here](https://github.com/atmulyana/rc-input-validator/tree/main/example/)
+[here](https://github.com/atmulyana/react-input-validator/tree/main/example)
