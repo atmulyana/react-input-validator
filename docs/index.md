@@ -744,12 +744,6 @@ The example below shows the [rules](#rule) that may be applied to `CheckBox` ele
   <CheckBox
       name='agree'
       rules={[required, boolean, rule(isAgree => isAgree, "You must agree!!!")]}
-      style={{
-          $cover: styles.flex3,
-          $input: {
-              alignSelf: 'flex-start'
-          }
-      }}
       value={null}
   />
 ```
