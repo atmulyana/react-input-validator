@@ -20,7 +20,10 @@ DerivedData
 *.hmap
 *.ipa
 *.xcuserstate
-ios/.xcode.env.local
+**/ios/.xcode.env.local
+
+Podfile.lock
+Gemfile.lock
 
 # Android/IntelliJ
 #
