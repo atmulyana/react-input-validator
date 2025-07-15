@@ -539,8 +539,9 @@ The list of input validation option properties:
       
     When the input is valid, this parameter has the falsy value. There are three possibilities
     of this falsy value:
-    * `null` if valid when executing [`validate`](#withvalidation_method-validate). You may
-      set a success style to the input such as decorating it with green border.
+    * `null` if valid when executing [`validate`](#withvalidation_method-validate) or
+      [`validateAsync`](#withvalidation_method-validateAsync). You may set a success style to
+      the input such as decorating it with green border.
     * `undefined` if when executing
       [`clearValidation`](#withvalidation_method-clearvalidation). Because of being cleared,
       you should not set any status style (valid/invalid). The style should be reverted to
@@ -647,7 +648,7 @@ for web input):
   [`section`](#style_handling-native) for more information).  
   **NOTE:** It's not the opposite of [`getStyle`](#withvalidation-getstyle) which expects the
   composite style of the input element and its [`Container`](#withvalidation-container).
-  Whereas `setStyle`, on other hand, sets the style to the input directly.
+  Whereas `setStyle`, on other hands, sets the style to the input directly.
 
   The first parameter is the input props. The second one is the style that should be applied
   to the input. The third parameter is useful if you want to modify the style for the
@@ -714,7 +715,7 @@ the checkbox was checked or not, we must check the existence of the request para
 to the checkbox. We can use
 [`has`](https://developer.mozilla.org/en-US/docs/Web/API/FormData/has) method of `FormData`.
 So, we just need the name of the checkbox. If there is no other checbox whose the same name
-the we may ignore the value of the checkbox.
+then we may ignore the value of the checkbox.
 
 > To deal with a group of checkboxes whose the same name, please use
 > [`CheckBoxes`](#checkboxes) component.
@@ -738,7 +739,7 @@ state. Internally, it uses `<input type="hidden" />`.
 The *indeterminate* state is not only able to be set programmatically by setting `value` prop
 to `null`, but it can also be set by the user action. When the checkbox is checked, if it's
 clicked then it turns to the *indeterminate* state. If it's clicked again, it will be
-unchecked. The next click will turn the checkbox to be checked, and so on.
+unchecked. The next click will turn back the checkbox to be checked again, and so on.
 
 The example below shows the [rules](#rule) that may be applied to `CheckBox` element:
 ```javascript
@@ -749,7 +750,7 @@ The example below shows the [rules](#rule) that may be applied to `CheckBox` ele
   />
 ```
 [`required`](#required) rule disallows the checbox to be in the *indeterminate* state.
-[`boolean`](#boolean) rule makes sure the value can be interpreted as "true" or "false" and,
+[`boolean`](#boolean) rule makes sure the value can be interpreted as `true` or `false` and,
 if needed, converts it to a boolean value. This rule is really needed if the validation
 happens on the server because the value is sent as a string value.
 
@@ -1907,7 +1908,7 @@ fileCheck(
 From `@react-input-validator/native` and `@react-input-validator/web` package, you may import
 the following functions:
 
-### `arrayAsSingle` <a name="#function-arrayassingle"></a>  
+### `arrayAsSingle` <a name="function-arrayassingle"></a>  
 If an input has an array value and wants all rules applied to it must consider an array as a
 single value then [`arrayAsSingle`](#validationrule_method-arraysssingle) method of each rule
 object must be invoked. If there are many rules then it will be inconvinient. This function
