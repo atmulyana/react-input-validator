@@ -523,11 +523,12 @@ The list of input validation option properties:
 
 - `setStatusStyle` <a name="withvalidation-setstatusstyle"></a>  
   **Type:** `function(props, style, context): React.ReactNode`  
-  This function is called when executing [`validate`](#withvalidation_method-validate). This
-  function should change the input style to reflect the validation status (valid/invalid).
-  This function also is executed in every render because the style is reverted to normal style
-  by [`setStyle`](#withvalidation-setstyle) function. In which condition the function is
-  executed, you can check the second parameter.  
+  This function is called when executing [`validate`](#withvalidation_method-validate) or
+  [`validateAsync`](#withvalidation_method-validateasync). This function should change the
+  input style to reflect the validation status (valid/invalid). This function also is executed
+  in every render because the style is reverted to normal style by
+  [`setStyle`](#withvalidation-setstyle) function. In which condition the function is executed,
+  you can check the second parameter.  
   **Parameters:**
   + `props` is the props of input element. The prop you should care about is that which holds
     style value for the input, usually named `style`.
@@ -540,7 +541,7 @@ The list of input validation option properties:
     When the input is valid, this parameter has the falsy value. There are three possibilities
     of this falsy value:
     * `null` if valid when executing [`validate`](#withvalidation_method-validate) or
-      [`validateAsync`](#withvalidation_method-validateAsync). You may set a success style to
+      [`validateAsync`](#withvalidation_method-validateasync). You may set a success style to
       the input such as decorating it with green border.
     * `undefined` if when executing
       [`clearValidation`](#withvalidation_method-clearvalidation). Because of being cleared,
