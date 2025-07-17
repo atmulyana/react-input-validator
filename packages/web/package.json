@@ -1,6 +1,6 @@
 {
     "name": "@react-input-validator/web",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "description": "Doing validation to the form inputs in React web app",
     "author": "AT Mulyana <atmulyana@yahoo.com>",
     "license": "MIT",

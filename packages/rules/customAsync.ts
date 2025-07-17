@@ -38,6 +38,7 @@ export class CustomRuleAsync<V = any> extends ValidationRuleAsync<V> {
         });
         this.isValid = validationValue === true;
         
+        delete this.#result.value;
         if (this.isValid) {
             this.#message = null;
             if ('resultValue' in param) this.#result.value = param.resultValue;

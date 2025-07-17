@@ -2,17 +2,17 @@
  * https://github.com/atmulyana/react-input-validator
  */
 import {TimerFormat} from 'jssimpledateformat';
-import {ValidationRule, type IRule} from '@react-input-validator/rules';
+import {ValidationRule, type Nullable} from '@react-input-validator/rules';
 import messages from './messages';
 
 const defaultPattern = "hh:mm";
-export class Time extends ValidationRule<string, Date> {
+export class Time extends ValidationRule<string, Date | null> {
     static get defaultPattern() {
         return defaultPattern;
     } 
     
     #timeFormat!: TimerFormat;
-    #time!: Date;
+    #time: Nullable<Date>;
 
     constructor(pattern?: string, locale?: string) {
         super();
@@ -24,21 +24,20 @@ export class Time extends ValidationRule<string, Date> {
     }
     
     get resultValue() {
-        return this.#time;
+        return this.#time === undefined ? this.valueAsDate : this.#time;
     }
 
     get valueAsDate() {
-        return this.#timeFormat.parse(this.value);
+        return typeof(this.value) == 'string' ? this.#timeFormat.parse(this.value) : null;
     }
     
     parse(strTime: string) {
         return this.#timeFormat.parse(strTime);
     }
     
-    validate(): IRule<string, Date> {
-        const time = this.#timeFormat.parse(this.value);
-        this.#time = time as Date;
-        this.isValid = !!time;
+    validate() {
+        this.#time = this.valueAsDate;
+        this.isValid = this.#time != null;
         return this;
     }
 }

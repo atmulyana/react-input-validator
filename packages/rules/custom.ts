@@ -36,6 +36,7 @@ export class CustomRule<V = any> extends ValidationRule<V> {
         const validationValue = this.#validate(this.value, param); //It may return `true` if valid or an error message
         this.isValid = validationValue === true;
         
+        delete this.#result.value;
         if (this.isValid) {
             this.#message = null;
             if ('resultValue' in param) this.#result.value = param.resultValue;

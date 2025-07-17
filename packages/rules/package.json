@@ -1,6 +1,6 @@
 {
     "name": "@react-input-validator/rules",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "description": "The validation rule objects used by the packages: `@react-input-validator/core`, `@react-input-validator/native` and `@react-input-validator/web`",
     "author": "AT Mulyana <atmulyana@yahoo.com>",
     "license": "MIT",

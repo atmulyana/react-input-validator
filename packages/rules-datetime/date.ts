@@ -2,17 +2,17 @@
  * https://github.com/atmulyana/react-input-validator
  */
 import JsSimpleDateFormat, {NetDateTimeFormat} from 'jssimpledateformat';
-import {ValidationRule, type IRule} from '@react-input-validator/rules';
+import {ValidationRule, type Nullable} from '@react-input-validator/rules';
 import messages from './messages';
 
 const defaultPattern = "yyyy-MM-dd";
-export class StrDate extends ValidationRule<string, Date> {
+export class StrDate extends ValidationRule<string, Date | null> {
     static get defaultPattern() {
         return defaultPattern;
     } 
     
     #dtFormat!: JsSimpleDateFormat;
-    #date!: Date;
+    #date: Nullable<Date>;
 
     constructor(pattern?: string, locale?: string, isNet: boolean = false) {
         super();
@@ -25,21 +25,20 @@ export class StrDate extends ValidationRule<string, Date> {
     }
     
     get resultValue() {
-        return this.#date;
+        return this.#date === undefined ? this.valueAsDate : this.#date;
     }
 
     get valueAsDate() {
-        return this.#dtFormat.parse(this.value);
+        return typeof(this.value) == 'string' ? this.#dtFormat.parse(this.value) : null;
     }
     
     parse(strDate: string) {
         return this.#dtFormat.parse(strDate);
     }
 
-    validate(): IRule<string, Date> {
-        const date = this.#dtFormat.parse(this.value);
-        this.#date = date as Date;
-        this.isValid = !!date;
+    validate() {
+        this.#date = this.valueAsDate;
+        this.isValid = this.#date != null;
         return this;
     }
 }

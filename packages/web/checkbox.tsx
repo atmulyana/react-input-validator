@@ -22,87 +22,88 @@ import type {
 } from './types';
 import {ValidatedInput} from './Validation';
 
-type CheckBoxValue = boolean | null;
+type CheckBoxValue<NoIndeterminate extends (boolean | undefined)> = NoIndeterminate extends true ? boolean : (boolean | null);
 //@ts-ignore: we need to define the new type of `value`
-interface HtmlCheckBoxRef extends HTMLInputElement {
+interface HtmlCheckBoxRef<NoIndeterminate extends boolean> extends HTMLInputElement {
     type: 'checkbox',
-    value: CheckBoxValue,
+    value: CheckBoxValue<NoIndeterminate>,
 }
-type HtmlCheckBoxProps = Omit<
+type HtmlCheckBoxProps<NoIndeterminate extends (boolean | undefined)> = Omit<
     React.ComponentProps<'input'>,
     'checked' | 'defaultChecked' | 'defaultValue' | 'onChange' | 'ref' | 'style' | 'type' | 'value'
 > & {
-    onChange: React.ChangeEventHandler<HtmlCheckBoxRef>,
+    noIndeterminate?: NoIndeterminate,
+    onChange: React.ChangeEventHandler<HtmlCheckBoxRef<NonNullable<NoIndeterminate>>>,
     style?: StyleProp,
-    value?: CheckBoxValue,
+    value?: CheckBoxValue<NoIndeterminate>,
 };
-type CheckBoxInputProps = Omit<
+type CheckBoxInputProps<NoIndeterminate extends (boolean | undefined)> = Omit<
     InputProps<
-        HtmlCheckBoxRef,
+        HtmlCheckBoxRef<NonNullable<NoIndeterminate>>,
         //@ts-ignore: consider that `HtmlInputRef<Type>` can be casted to `HTMLInputElement`  
-        HtmlCheckBoxProps,
-        CheckBoxValue
+        HtmlCheckBoxProps<NoIndeterminate>,
+        CheckBoxValue<NoIndeterminate>
     >,
     'onChange'
 >;
-export type CheckBoxProps = Omit<
-    CheckBoxInputProps,
+export type CheckBoxProps<NoIndeterminate extends (boolean | undefined) = false> = Omit<
+    CheckBoxInputProps<NoIndeterminate>,
     'Component' | 'rules'
 > & {
-    onChange?: React.ChangeEventHandler<HtmlCheckBoxRef>,
+    onChange?: React.ChangeEventHandler<HtmlCheckBoxRef<NonNullable<NoIndeterminate>>>,
     rules?: Rules
 };
-export type CheckBoxRef = HtmlCheckBoxRef & InputRef;
+export type CheckBoxRef<NoIndeterminate extends boolean = false> = HtmlCheckBoxRef<NoIndeterminate> & InputRef;
 
-function checkboxValue(input: HTMLInputElement) {
+function checkboxValue(input: HTMLInputElement, noIndeterminate: boolean = false) {
     return {
         get type() {
             return 'checkbox';
         },
-        set type(tp) {
+        set type(value: 'checkbox') {
             input.type = 'checkbox';
         },
         get value() {
-            if (input.indeterminate) return null;
+            if (input.indeterminate && !noIndeterminate) return null;
             return input.checked;
         },
         set value(val) {
-            if (val === true || val == false) {
+            if (val === true || val === false) {
                 input.checked = val;
                 input.indeterminate = false;
             }
             else {
                 input.checked = false;
-                input.indeterminate = true;
+                input.indeterminate = noIndeterminate ? false : true;
             }
         },
     }
 }
-const HtmlCheckBox = React.forwardRef(function HtmlCheckBox(
-    {name, onChange, style, value, ...props}: HtmlCheckBoxProps,
-    ref: React.Ref<HtmlCheckBoxRef>
+const HtmlCheckBox = React.forwardRef(function HtmlCheckBox<NoIndeterminate extends boolean>(
+    {name, noIndeterminate, onChange, style, value = false, ...props}: HtmlCheckBoxProps<NoIndeterminate>,
+    ref: React.Ref<HtmlCheckBoxRef<NoIndeterminate>>
 ) {
     const refObj = React.useRef<HTMLInputElement>(null);
     const changeHandler: React.ChangeEventHandler<HTMLInputElement> = ev => {
         const target = refObj.current;
         if (!target) return;
-        const event = (ev as any) as React.ChangeEvent<HtmlCheckBoxRef>;
-        event.target = extendObject(target, checkboxValue(target)) as any;
+        const event = (ev as any) as React.ChangeEvent<HtmlCheckBoxRef<NoIndeterminate>>;
+        event.target = extendObject(target, checkboxValue(target, noIndeterminate)) as any;
         onChange(event);
     };
-    const $ref = extRefCallback<HTMLInputElement, Pick<HtmlCheckBoxRef, 'type' | 'value'>>(
+    const $ref = extRefCallback<HTMLInputElement, Pick<HtmlCheckBoxRef<NoIndeterminate>, 'type' | 'value'>>(
         //@ts-ignore: we need to define the new type of `value`
         ref, /*must not be `null`, refers to `refCallback` in `forwardRef` in "core/Validation.tsx"*/
         inpRef => {
             refObj.current = inpRef;
             applyNullValue();
-            return checkboxValue(inpRef);
+            return checkboxValue(inpRef, noIndeterminate);
         }
     );
 
     const applyNullValue = () => {
         if (refObj.current) {
-            refObj.current.indeterminate = value !== true && value !== false;
+            refObj.current.indeterminate = noIndeterminate ? false : (value !== true && value !== false);
         }
     };
     applyNullValue();
@@ -143,24 +144,24 @@ const HtmlCheckBox = React.forwardRef(function HtmlCheckBox(
     </>;
 });
 HtmlCheckBox.displayName = 'HtmlCheckBox';
-export const CheckBox = React.forwardRef(function CheckBox(
-    {rules = alwaysValid, ...props}: CheckBoxProps,
-    ref: React.Ref<CheckBoxRef>
+export const CheckBox = React.forwardRef(function CheckBox<NoIndeterminate extends boolean = false>(
+    {rules = alwaysValid, value = false, ...props}: CheckBoxProps<NoIndeterminate>,
+    ref: React.Ref<CheckBoxRef<NoIndeterminate>>
 ) {
     const InputComponet = ValidatedInput as (
         (
-            props: CheckBoxInputProps & React.RefAttributes<CheckBoxRef>
+            props: CheckBoxInputProps<NoIndeterminate> & React.RefAttributes<CheckBoxRef<NoIndeterminate>>
         ) => React.ReactNode
     );
-    return <InputComponet {...props} Component={HtmlCheckBox} rules={rules} ref={ref} />;
+    return <InputComponet {...props} ref={ref} Component={HtmlCheckBox} rules={rules} value={value} />;
 }) as ({
     /**
      * Needs to cast to a Function Component so that `Type` type has the effect. If not casted then
      *      <Input type="number" value="a value" ... >
      * will be no type error even though `value` is a string. It should be a number.
      */
-    (
-        props: CheckBoxProps & React.RefAttributes<CheckBoxRef>
+    <NoIndeterminate extends (boolean | undefined) = false>(
+        props: CheckBoxProps<NoIndeterminate> & React.RefAttributes<CheckBoxRef<NonNullable<NoIndeterminate>>>
     ): React.ReactNode,
 
     displayName: 'CheckBox',

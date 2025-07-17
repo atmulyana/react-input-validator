@@ -1,25 +1,34 @@
 /**
  * https://github.com/atmulyana/react-input-validator
  */
-import type {IRule} from './Rule';
+import type {IRule, Nullable} from './Rule';
 import ValidationRule from "./ValidationRule";
 
-export class BooleanValue extends ValidationRule<any, boolean> {
-    #resultValue!: boolean;
+export class BooleanValue extends ValidationRule<any, boolean | null> {
+    #resultValue: Nullable<boolean>;
 
     get resultValue() {
-        return this.#resultValue;
+        return this.#resultValue === undefined ? this.valueAsBoolean : this.#resultValue;
+    }
+
+    get valueAsBoolean() {
+        if (this.value === true || this.value === false) return this.value;
+        if (typeof(this.value) == 'string') {
+            const strVal = this.value.toLowerCase();
+            if (strVal == 'true') return true;
+            if (strVal == 'false') return false;
+        }
+        return null;
     }
 
     validate() {
-        const strVal = new String(this.value).toLowerCase();
-        this.isValid = strVal == 'true' || strVal == 'false';
-        if (this.isValid) this.#resultValue = eval(strVal);
+        this.#resultValue = this.valueAsBoolean;
+        this.isValid = this.#resultValue !== null;
         return this;
     }
 }
 
-export const boolean: IRule<any, boolean> = new BooleanValue();
+export const boolean: IRule<any, boolean | null> = new BooleanValue();
 boolean.arrayAsSingle = function() {
     throw new Error("`boolean` rule object is shared among inputs. If you want to invoke `arrayAsSingle`, use `new BooleanValue()` instead.");
 };
