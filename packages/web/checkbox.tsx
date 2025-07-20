@@ -2,9 +2,9 @@
 /**
  * https://github.com/atmulyana/react-input-validator
  */
-import React, {CSSProperties} from 'react';
+import React, {type CSSProperties} from 'react';
 import {emptyString, extendObject} from 'javascript-common';
-import {extRefCallback} from 'reactjs-common';
+import {extRefCallback, setRef} from 'reactjs-common';
 import {useState} from '@react-input-validator/core/helpers';
 import {alwaysValid} from '@react-input-validator/rules';
 import {
@@ -57,6 +57,16 @@ export type CheckBoxRef<NoIndeterminate extends boolean = false> = HtmlCheckBoxR
 
 function checkboxValue(input: HTMLInputElement, noIndeterminate: boolean = false) {
     return {
+        get checked() {
+            return input.checked;
+        },
+        set checked(isChecked: boolean) {
+        },
+        get indeterminate() {
+            return input.indeterminate;
+        },
+        set indeterminate(isIndeterminate: boolean) {
+        },
         get type() {
             return 'checkbox';
         },
@@ -67,7 +77,7 @@ function checkboxValue(input: HTMLInputElement, noIndeterminate: boolean = false
             if (input.indeterminate && !noIndeterminate) return null;
             return input.checked;
         },
-        set value(val) {
+        set value(val: boolean | null) {
             if (val === true || val === false) {
                 input.checked = val;
                 input.indeterminate = false;
@@ -91,46 +101,59 @@ const HtmlCheckBox = React.forwardRef(function HtmlCheckBox<NoIndeterminate exte
         event.target = extendObject(target, checkboxValue(target, noIndeterminate)) as any;
         onChange(event);
     };
-    const $ref = extRefCallback<HTMLInputElement, Pick<HtmlCheckBoxRef<NoIndeterminate>, 'type' | 'value'>>(
-        //@ts-ignore: we need to define the new type of `value`
-        ref, /*must not be `null`, refers to `refCallback` in `forwardRef` in "core/Validation.tsx"*/
-        inpRef => {
-            refObj.current = inpRef;
-            applyNullValue();
-            return checkboxValue(inpRef, noIndeterminate);
-        }
-    );
+    // const $ref = extRefCallback<HTMLInputElement, Pick<HtmlCheckBoxRef<NoIndeterminate>, 'type' | 'value'>>(
+    //     //@ts-ignore: we need to define the new type of `value`
+    //     ref, /*must not be `null`, refers to `refCallback` in `forwardRef` in "core/Validation.tsx"*/
+    //     inpRef => {
+    //         refObj.current = inpRef;
+    //         applyNullValue();
+    //         return checkboxValue(inpRef, noIndeterminate);
+    //     }
+    // );
+    React.useEffect(() => {
+        if (!refObj.current) return;
+        setRef(
+            ref,
+            extendObject(
+                refObj.current,
+                checkboxValue(refObj.current, noIndeterminate)
+            )
+        );
+    }, [noIndeterminate]);
 
     const applyNullValue = () => {
         if (refObj.current) {
             refObj.current.indeterminate = noIndeterminate ? false : (value !== true && value !== false);
         }
     };
-    applyNullValue();
+    React.useEffect(() => {
+        applyNullValue();
+    }, [noIndeterminate, value]);
 
     return <>
         <input
             {...props}
-            ref={$ref}
+            ref={refObj}
             checked={value === true}
             onChange={changeHandler}
             onClick={() => {
                 const input = refObj.current as HTMLInputElement;
                 if (value === true) {
-                    input.indeterminate = true;
+                    input.indeterminate = noIndeterminate ? false : true;
                     input.checked = false;
                 }
                 else if (value === false) {
                     input.indeterminate = false;
                     input.checked = true;
                 }
-                else { 
+                else {
                     input.indeterminate = false;
                     input.checked = false;
                 }
             }}
             style={style as CSSProperties | undefined /* has been converted by `setStyle` (`setStyleDefault`) in `withValidation` */}
             type='checkbox'
+            value='true'
         />
         <input
             type='hidden'

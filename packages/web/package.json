@@ -1,6 +1,6 @@
 {
     "name": "@react-input-validator/web",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "description": "Doing validation to the form inputs in React web app",
     "author": "AT Mulyana <atmulyana@yahoo.com>",
     "license": "MIT",
@@ -52,7 +52,7 @@
         "node": ">=14.13.0"
     },
     "dependencies": {
-        "@react-input-validator/core": "^2.0.0"
+        "@react-input-validator/core": ">=2.0.1 <3.0.0"
     },
     "devDependencies": {
         "@babel/core": "^7.27.7",

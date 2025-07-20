@@ -1,6 +1,6 @@
 {
     "name": "@react-input-validator/core",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "description": "The core library for doing validation to the form inputs in react app. It's used by `@react-input-validator/native` which does the validation in React Native app. Also, used by `@react-input-validator/web` which does the validation in React web app.",
     "author": "AT Mulyana <atmulyana@yahoo.com>",
     "license": "MIT",
@@ -61,6 +61,7 @@
     },
     "dependencies": {
         "@react-input-validator/helpers": "^2.0.0",
+        "javascript-common": ">=0.0.9",
         "reactjs-common": ">=0.1.0"
     },
     "devDependencies": {

@@ -5,7 +5,7 @@
 import React from 'react';
 import {
     alwaysValid,
-    boolean,
+    // boolean,
     integer,
     max,
     min,
@@ -21,7 +21,8 @@ import {
 } from '@react-input-validator/rules-datetime';
 import {
     arrayAsSingle,
-    CheckBox,
+    // CheckBox,
+    // type CheckBoxRef,
     CheckBoxes,
     type ContextRef,
     Form,
@@ -75,6 +76,9 @@ export default function BasicPage() {
     const [domicile, setDomicile] = React.useState('xyz');
     const [hobbies, setHobbies] = React.useState<string | readonly string[]>('xyz');
     const [confirm, setConfirm] = React.useState(false);
+    
+    // const [noIndeterminate, setNoIndeterminate] = React.useState(false);
+    // const chkRef = React.useRef<CheckBoxRef>(null);
 
     return <Form ref={formRef} contextProps={{focusOnInvalid: true}} style={styles.form} onSubmit={ev => ev.preventDefault()}>
         <h3 style={styles.title}>Employee Data Form</h3>
@@ -242,10 +246,13 @@ export default function BasicPage() {
             <div style={styles.flex2}><button type='button' onClick={() => setHobbies([])}>Clear</button></div>
         </div>
         
-        {/*<div style={styles.inputRow}>
+        {/* <fieldset>
+        <div style={styles.inputRow}>
             <div style={styles.flex1}>Agree?</div>
             <CheckBox
+                ref={chkRef}
                 name='agree'
+                noIndeterminate={noIndeterminate}
                 rules={[required, boolean, rule(isAgree => isAgree, "You must agree!!!")]}
                 style={{
                     $cover: styles.flex3,
@@ -253,10 +260,26 @@ export default function BasicPage() {
                         alignSelf: 'flex-start'
                     }
                 }}
-                value={null}
+                //value={null}
             />
-        </div>*/}
-        
+        </div>
+        <div style={styles.inputRow}>
+            <div style={styles.flex1}>&nbsp;</div>
+            <div style={styles.flex3}>
+                <input type='checkbox' checked={noIndeterminate} onChange={ev => setNoIndeterminate(ev.target.checked)} />
+                noIndeterminate
+            </div>
+        </div>
+        <div style={styles.inputRow}>
+            <div style={styles.flex1}>&nbsp;</div>
+            <div style={styles.flex3}>
+                <button type='button' onClick={() => {if (chkRef.current) chkRef.current.value = true}}>true</button>
+                <button type='button' onClick={() => {if (chkRef.current) chkRef.current.value = false}}>false</button>
+                <button type='button' onClick={() => {if (chkRef.current) chkRef.current.value = null}}>null</button>
+            </div>
+        </div>
+        </fieldset> */}
+
         <div style={styles.inputRow}>&nbsp;</div>
         <div style={styles.inputRow}>
             <div style={styles.flex1}>&nbsp;</div>

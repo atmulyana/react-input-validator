@@ -32,7 +32,7 @@ type SelectInputProps<Multiple extends (boolean | undefined)> =
         SelectValue<NonNullable<Multiple>>
     >;
 export type SelectProps<Multiple extends (boolean | undefined) = boolean> = Omit<SelectInputProps<Multiple>, 'Component'>;
-export type SelectRef<Multiple extends boolean = boolean> = HtmlSelectRef<Multiple> & InputRef;
+export type SelectRef<Multiple extends boolean = false> = HtmlSelectRef<Multiple> & InputRef;
 
 function selectValue<Multiple>(input: HTMLSelectElement) {
     return {
