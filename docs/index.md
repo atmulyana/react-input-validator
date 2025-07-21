@@ -251,7 +251,7 @@ The more complete list below shows the objects exported by the packages:
   + type `SelectRef` (`ref` for `Select`)
   + type `TextAreaRef` (`ref` for `TextArea`)
 
-  All `*Ref` type extend `InputRef`.
+  All `*Ref` types extend `InputRef`.
 
 - "`@react-input-validator/rules`" package exports: 
   + `alwaysValid`
@@ -737,10 +737,17 @@ state. Internally, it uses `<input type="hidden" />`.
   or unchecked (the same way as we use `checked` prop of a regular checkbox). Beside a boolean
   value, we may set `value` to `null` which makes the checbox to be *indeterminate* state.
 
+Beside that, `CheckBox` has new prop:
+- `noIndeterminate`  
+  It has a boolean value. It it's `true` then no *indeterminate* state which means `value` prop
+  cannot be `null`. This prop is optional which defaults to `false`.
+
 The *indeterminate* state is not only able to be set programmatically by setting `value` prop
 to `null`, but it can also be set by the user action. When the checkbox is checked, if it's
 clicked then it turns to the *indeterminate* state. If it's clicked again, it will be
-unchecked. The next click will turn back the checkbox to be checked again, and so on.
+unchecked. The next click will turn back the checkbox to be checked again, and so on. If
+`noIndeterminate` is `true` then the clicking action only alters from checked to unchecked
+state and vice versa.
 
 The example below shows the [rules](#rule) that may be applied to `CheckBox` element:
 ```javascript
@@ -1667,9 +1674,13 @@ error message (by this way, you may create different error message for different
 `predicate` function parameters:
 - The input value which is the same as [`value`](#validationrule_property-value) property of
   the rule object.
-- An object which has properties: `{inputValues, name}`. They are the same as
-  [`inputValues`](#validationrule_property-inputvalues) and
-  [`name`](#validationrule_property-name) of the rule object.
+- An object which has properties:
+  + `inputValues` is the same as [`inputValues`](#validationrule_property-inputvalues)
+    property of the rule object.
+  + `name` is the same as [`name`](#validationrule_property-name) of the rule object.
+  + `resultValue`  
+    This property is not what you want to get but you should set. If you set this property
+    then it will set [`resultValue`](#validationrule_property-resultValue) of the rule object.
 
 The `errorMessage` parameter is used as the error message if `predicate` function doesn't
 return a string (returns `false`). If you set
