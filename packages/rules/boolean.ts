@@ -7,11 +7,11 @@ import ValidationRule from "./ValidationRule";
 export class BooleanValue extends ValidationRule<any, boolean | null> {
     #resultValue: Nullable<boolean>;
 
-    get resultValue() {
+    get resultValue(): boolean | null {
         return this.#resultValue === undefined ? this.valueAsBoolean : this.#resultValue;
     }
 
-    get valueAsBoolean() {
+    get valueAsBoolean(): boolean | null {
         if (this.value === true || this.value === false) return this.value;
         if (typeof(this.value) == 'string') {
             const strVal = this.value.toLowerCase();

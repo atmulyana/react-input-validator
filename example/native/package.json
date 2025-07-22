@@ -18,7 +18,7 @@
     "react-native-feather": "^1.1.2",
     "react-native-simple-radio-button": "^2.7.4",
     "react-native-svg": "^15.12.0",
-    "rn-select-option": "^0.0.6"
+    "rn-select-option": "^0.0.8"
   },
   "devDependencies": {
     "@babel/core": "^7.28.0",
