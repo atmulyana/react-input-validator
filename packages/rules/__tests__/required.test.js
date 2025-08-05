@@ -25,8 +25,6 @@ test('validation: Required.If', () => {
     expect(Required.If(() => false).setValue('value').validate().isValid).toBe(true);
 });
 
-
-
 test('validation: Required.notTrimmed', () => {
     var req1 = new Required().notTrimmed().setValue(' value  ').validate(),
         req2 = new Required().notTrimmed().setValue('value').validate(),
@@ -46,6 +44,13 @@ test('validation: Required.notTrimmed', () => {
     expect(req5.resultValue).toBe(null);
     expect(req6.isValid).toBe(true);
     expect(req6.resultValue).toBe(0);
+});
+
+test('validation: `resultValue` of `alwaysValid`', () => {
+    expect(alwaysValid.notTrimmed().setValue('   abc  ').validate().resultValue).toBe('abc');
+    expect(alwaysValid.notTrimmed().setValue('   abc  ').resultValue).toBe('abc');
+    expect(alwaysValid.notTrimmed().setValue('   abc  ').validate().resultValue).toBe('abc');
+    expect(alwaysValid.notTrimmed().setValue('   abc  ').resultValue).toBe('abc');
 });
 
 test('validation: dissallowing `arrayAsSingle` call on `required`', () => {

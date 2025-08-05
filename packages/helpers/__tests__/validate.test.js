@@ -54,12 +54,22 @@ test('validation: `validate` with optional rule', () => {
     expect(validate('-1', rules)).toContain('minimum');
 });
 
-test('validation: `validate` with required rule', () => {
+test('validation: `validate` with `required` rule', () => {
     const rules = [min(5), numeric, required];
     expect(validate('', rules)).toContain('required');
     expect(validate('6abc', rules)).toContain('numeric');
     expect(validate('6', rules)).toBe(true);
     expect(validate('-1', rules)).toContain('minimum');
+});
+
+test('validation: `validate` makes next rule consumes `resultValue` of `Required` rule', async () => {
+    expect( validate(' a  ', length(2)) ).toBe(true);
+    expect( validate(' a  ', [required, length(2)]) ).not.toBe(true);
+    expect( validate(' a  ', [alwaysValid, length(2)]) ).not.toBe(true);
+
+    expect( await validateAsync(' a  ', length(2)) ).toBe(true);
+    expect( await validateAsync(' a  ', [required, length(2)]) ).not.toBe(true);
+    expect( await validateAsync(' a  ', [alwaysValid, length(2)]) ).not.toBe(true);
 });
 
 test('validation: `ValidationRuleAsync` is examined at the right order', async () => {

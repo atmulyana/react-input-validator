@@ -3,9 +3,14 @@
  */
 import type {IRule, Nullable} from './Rule';
 import ValidationRule from "./ValidationRule";
+import messages from './messages';
 
 export class BooleanValue extends ValidationRule<any, boolean | null> {
     #resultValue: Nullable<boolean>;
+    
+    get errorMessage() {
+        return this.lang(messages.boolean);
+    }
 
     get resultValue(): boolean | null {
         return this.#resultValue === undefined ? this.valueAsBoolean : this.#resultValue;

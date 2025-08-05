@@ -100,7 +100,7 @@ function checkRules(
     arRule = arRule.filter(rule => {
         if (rule instanceof Required) {
             requireds.push(rule);
-           return false;
+            return false;
         }
         return rule instanceof Rule; //runtime check
     }).sort(
@@ -115,7 +115,9 @@ function checkRules(
     for (let req of requireds) {
         requiredResult = validateRule(req, value, param, lang, false);
         if (!requiredResult.isValid) return requiredResult.message;
+        value = requiredResult.resultValue;
     }
+    if (requiredResult?.isValid) param.resultValue = requiredResult.resultValue;
     
     if (
         (
@@ -124,16 +126,12 @@ function checkRules(
         )
         && !isFilled(value)
     ) {
-        if (requiredResult?.isValid) param.resultValue = requiredResult.resultValue;
         return true;
     }
 
-    if (arRule.length < 1) {
-        if (requiredResult?.isValid) {
-            param.resultValue = requiredResult.resultValue;
-            return true;
-        }
-        return false;
+    if (arRule.length < 1) { //No rule beside `Required` rule
+        if (requiredResult?.isValid) return true; //There is at least on `Required` rule
+        return false; //Really no rule at all
     }
 
     Rule.prototype.lang = lang;
@@ -142,7 +140,10 @@ function checkRules(
 
 
 function prepareParam(param: TParam): ValidateParam {
-    if (typeof(param) == 'object' && param) return param;
+    if (typeof(param) == 'object' && param) {
+        delete param.resultValue;
+        return param;
+    }
     return {name: param};
 }
 
@@ -156,7 +157,7 @@ export function validate(
     let arRule = checkRules(rules, value, param, lang);
     if (!Array.isArray(arRule)) return arRule;
 
-    let val = value;
+    let val = 'resultValue' in param ? param.resultValue : value;
     for (let rule of arRule) {
         const result = validateRule(rule, val, param, lang, false);
         if (result.isValid) {
@@ -181,7 +182,7 @@ export async function validateAsync(
     let arRule = checkRules(rules, value, param, lang);
     if (!Array.isArray(arRule)) return arRule;
 
-    let val = value;
+    let val = 'resultValue' in param ? param.resultValue : value;
     for (let rule of arRule) {
         const result = await validateRule(rule, val, param, lang, true);
         if (result.isValid) {

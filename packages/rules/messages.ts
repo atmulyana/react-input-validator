@@ -1,9 +1,11 @@
+import { boolean } from "./boolean";
+
 /**
  * https://github.com/atmulyana/react-input-validator
  */
 export default {
     asyncFail: 'cannot validate',
-    date: 'invalid date and/or time',
+    boolean: 'must be either `true` or `false`',
     email: 'invalid email address',
     httpReq: {
         disconnected: "can't connect to server",
@@ -17,6 +19,5 @@ export default {
     max: 'maximum ${max}',
     min: 'minimum ${min}',
     numeric: 'invalid numeric value',
-    required: 'required',
-    time: 'invalid time'
+    required: 'required'
 };
