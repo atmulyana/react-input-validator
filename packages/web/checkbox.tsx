@@ -151,7 +151,10 @@ const HtmlCheckBox = React.forwardRef(function HtmlCheckBox<NoIndeterminate exte
                     input.checked = false;
                 }
             }}
-            style={style as CSSProperties | undefined /* has been converted by `setStyle` (`setStyleDefault`) in `withValidation` */}
+            style={Object.assign({},
+                defaultStyle.checkbox,
+                style as CSSProperties | undefined /* has been converted by `setStyle` (`setStyleDefault`) in `withValidation` */
+            )}
             type='checkbox'
             value='true'
         />

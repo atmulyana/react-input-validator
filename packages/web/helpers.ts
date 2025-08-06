@@ -13,6 +13,9 @@ export const defaultStyle: {[p: string]: CSSProperties} = {
         justifyContent: 'flex-start',
         position: 'relative',
     },
+    checkbox: {
+        alignSelf: 'flex-start',
+    },
     checkedInputs: {
         alignContent: 'flex-start',
         columnGap: '16px',
