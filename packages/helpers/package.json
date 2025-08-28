@@ -1,6 +1,6 @@
 {
     "name": "@react-input-validator/helpers",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "description": "The helper functions/variables used by the packages under `@react-input-validator`",
     "author": "AT Mulyana <atmulyana@yahoo.com>",
     "license": "MIT",

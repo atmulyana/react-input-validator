@@ -111,6 +111,7 @@ function checkRules(
         )
     );
 
+    Rule.prototype.lang = lang;
     let requiredResult: TValidateRuleReturn | undefined;
     for (let req of requireds) {
         requiredResult = validateRule(req, value, param, lang, false);
@@ -134,7 +135,6 @@ function checkRules(
         return false; //Really no rule at all
     }
 
-    Rule.prototype.lang = lang;
     return arRule;
 }
 
